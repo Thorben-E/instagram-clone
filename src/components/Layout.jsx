@@ -25,23 +25,23 @@ const Layout = ({ toggleTheme, theme }) => {
                 <ul>
                     <li><h2 className="title">Instagram</h2></li>
                     <li>
-                        {theme === 'light' ? <img src={homeblack} alt="img could not load" className="uploadIMG" /> : <img src={homewhite} />}
+                        {theme === 'light' ? <img src={homeblack} alt="img could not load" className="uploadIMG" /> : <img alt="" src={homewhite} />}
                         <Link to='/'>Homepage</Link> 
                     </li>
                     <li>
-                        {theme === 'light' ? <img src={searchblack} alt="img could not load" className="uploadIMG" /> : <img src={searchwhite} />}
+                        {theme === 'light' ? <img src={searchblack} alt="img could not load" className="uploadIMG" /> : <img alt="" src={searchwhite} />}
                         <input type="text" className="searchbar" placeholder="Search..." />
                     </li>
                     <li>
-                        {theme === 'light' ? <img src={uploadIMG} alt="img could not load" className="uploadIMG" /> : <img src={uploadwhiteIMG} />}
+                        {theme === 'light' ? <img src={uploadIMG} alt="img could not load" className="uploadIMG" /> : <img alt="" src={uploadwhiteIMG} />}
                         <Link to='/upload'>Upload</Link>
                     </li>
                     <li>
-                        {theme === 'light' ? <img src={profileblack} alt="img could not load" className="uploadIMG" /> : <img src={profilewhite} />}
+                        {theme === 'light' ? <img src={profileblack} alt="img could not load" className="uploadIMG" /> : <img alt="" src={profilewhite} />}
                         <Link to='/profile' >Profile</Link>
                     </li>
                     <li onClick={logout}>
-                        {theme === 'light' ? <img src={logoutblack} alt="img could not load" className="uploadIMG" /> : <img src={logoutwhite} />}
+                        {theme === 'light' ? <img src={logoutblack} alt="img could not load" className="uploadIMG" /> : <img alt="" src={logoutwhite} />}
                         Sign out
                     </li>
                 </ul>
