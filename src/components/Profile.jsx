@@ -1,34 +1,103 @@
-import { updateProfile } from "firebase/auth";
-import React, { useContext, useState } from "react"
-import { UserContext } from "../contexts";
-import { auth } from "../firebase";
+import { updateProfile } from 'firebase/auth';
+import { doc, getDoc } from 'firebase/firestore';
+import { storage } from '../firebase';
+import { ref, listAll, getDownloadURL } from 'firebase/storage'; 
+import React, { useContext, useEffect, useState } from 'react';
+import { UserContext } from '../contexts';
+import { auth } from '../firebase';
+import { db } from '../firebase';
 
 const Profile = () => {
-  const [username, setUsername] = useState()
-  const {user} = useContext(UserContext)
+  const [username, setUsername] = useState();
+  const {user} = useContext(UserContext);
+  const [postList, setPostList] = useState([]);
+  const [changeUsername, setChangeUsername] = useState(true);
+  const [postListRefs, setPostListRefs] = useState([]);
 
   const update = async () => {
     updateProfile(auth.currentUser, {
-        displayName: username
+      displayName: username
     }).then(() => {
-        location.reload();
-        setTimout(() => {document.getElementById('functionLog').innerHTML = 'username updated. Refresh page to see update'}, 1000)
-        setTimeout(() => {
-          document.getElementById('functionLog').innerHTML = ''
-        }, 5000)
+      location.reload();
     }).catch((error) =>
-        console.log(error)
+      console.log(error)
     );
-  }
+  };
+
+  useEffect(() => {
+    postListRefs.forEach((post) => {
+      listAll(post).then((response) => {
+        response.items.forEach((item) => {
+          getDownloadURL(item).then((url) => {
+            setPostList((prev) => [...prev, url]);
+          });
+        });
+      });
+    });
+  }, []);
+
+  const getPosts = () => {
+    postListRefs.forEach((post) => {
+      listAll(ref(storage, post)).then((response) => {
+        response.items.forEach((item) => {
+          getDownloadURL(item).then((url) => {
+            setPostList((prev) => [...prev, url]);
+          });
+        });
+      });
+    });
+  };
+
+  const getFirestoreData = async () => {
+    console.log(user);
+    const docSnap = await getDoc(doc(db, 'Users', user.uid));
+    if (docSnap.exists()) {
+      docSnap.data().posts.forEach((post) => {
+        setPostListRefs((prev) => [...prev, post]);
+        document.getElementById('firestoreData-name').textContent = `${docSnap.data().name}`;
+        document.getElementById('firestoreData-bio').textContent = `${docSnap.data().bio}`;
+      });
+    }
+  };
+
+  const goToPost = () => {
+
+  };
+
+  const onChangeUsername = () => {
+    update();
+    setChangeUsername(false);
+  };
+
   return (
     <div>
-        <div>email: {user.email}</div>
-        <div>username: {user.displayName}</div>
-        <input type="text" onChange={(event) => setUsername(event.target.value)} name="username" id="username" placeholder='username' />
-        <button onClick={update} >Change username</button>
-        <p id="functionLog"></p>
+      <div className="profileinfo">
+        {changeUsername ? <div className='username'>
+          <h2>{user.displayName}</h2>
+          <button>Change username</button>
+        </div> : <div className="username">
+          <input type="text" onChange={(event) => setUsername(event.target.value)} name="username" id="username" placeholder='username' />
+          <button onClick={onChangeUsername} >Change username</button>
+        </div> }
+        <div>
+          <p>2 messages</p>
+          <p>4 followers</p>
+          <p>5 following</p>
+        </div>
+        <div className='name-bio'>
+          <b><p id='firestoreData-name'></p></b>
+          <p id='firestoreData-bio'></p>
+        </div>
+      </div>
+      {postList.map((url) => {
+        return <img key={url} onClick={goToPost} className="postimg" src={url} />;
+      })}
+      
+      <p id="functionLog"></p>
+      <button onClick={getFirestoreData}>getFirestoreData</button>
+      <button onClick={getPosts}>getPosts</button>
     </div>
-  )
+  );
 };
 
 export default Profile;
@@ -38,7 +107,6 @@ export default Profile;
   return (
     <div>
         <div className="profiletop">
-            <img src={profilelogo} alt="" />
             <div>
                 <h2>{name}</h2>
                 <div>

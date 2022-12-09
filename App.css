@@ -135,6 +135,11 @@ li {
   align-items: center;
 }
 
+.postimg {
+  width: 300px;
+  height: 225px;
+}
+
 /* dark theme + not automatic normal theme styling */
 
 #light {
