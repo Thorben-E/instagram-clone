@@ -1,24 +1,26 @@
 import React from 'react';
+import likeblack from '../assets/likeblack.png';
+import likewhite from '../assets/likewhite.png';
 
-const Post = (usericon, mainIMG, likeicon, likes, name, caption) => {
+// eslint-disable-next-line react/prop-types
+const Post = ({ theme, postIMG, caption, likes }) => {
   return (
     <div className="post">
       <div className="posttopbar">
-        <img src={usericon} alt="" />
         <div>
           <p>Name</p>
           <p>Follow</p>
         </div>
       </div>
-      <img src={mainIMG} alt="" />
+      <img src={postIMG} alt="" />
       <div className="postbottembar">
-        <img src={likeicon} alt="" />
+        {theme === 'light' ? <img src={likeblack} alt="img could not load" className="uploadIMG" /> : <img alt="" src={likewhite} />}
         <p>{likes}</p>
         <p>{name} {caption}</p>
         <ul>
-          {comments.map((comment) => {
+          {/* {comments.map((comment) => {
             <li key={comment.user}>{comment.user}: {comment.text}</li>;
-          })}    
+          })} */}    
         </ul>
         <div>
           <input type="text" id="commenttext" placeholder="Put comment here"/>

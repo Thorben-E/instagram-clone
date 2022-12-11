@@ -31,10 +31,10 @@ function App() {
           {user ? <div className="App" id={theme}>
             <Layout toggleTheme={toggleTheme} theme={theme}/>
             <Routes>
-              <Route index element={<Homepage />} />
+              <Route index element={<Homepage theme={theme} />} />
               <Route path='login' element={<Login />} />
               <Route path='upload' element={<Upload />} />
-              <Route path='profile' element={<Profile />} />
+              <Route path='profile' element={<Profile />} theme={theme} />
             </Routes>
           </div> : <Login />}
         </ThemeContext.Provider>

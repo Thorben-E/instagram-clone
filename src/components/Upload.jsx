@@ -15,7 +15,7 @@ const Upload = () => {
   const upload = async () => {
     const userRef = doc(db, 'Users', user.uid);
     if (imageUpload == null) return;
-    const docRef = await addDoc(postsColRef, {caption: caption});
+    const docRef = await addDoc(postsColRef, {caption: caption, userid: user.uid});
     await updateDoc(userRef, {
       posts: arrayUnion(docRef.id)
     });

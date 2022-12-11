@@ -4,6 +4,7 @@
   --black: #000000;
   --darkgray: #2f2f30;
   --lightgray: #434345;
+  --buttonhover: #ededed;
 }
 
 @font-face {
@@ -21,13 +22,21 @@ body {
   font-family: 'Roboto';
 }
 
-
+#root {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  justify-content: center;
+  align-items: center; 
+}
 
 .App {
   width: 100vw;
   height: 100vh;
   display: flex;
 }
+
+/* sidebar styling */
 
 nav {
   display: flex;
@@ -79,10 +88,7 @@ li {
   gap: 15px;
 }
 
-.loginIMG {
-  width: 300px;
-  height: 425px;
-}
+/* login and sign in styling */
 
 .loginForm {
   display: flex;
@@ -135,9 +141,90 @@ li {
   align-items: center;
 }
 
+/* profile styling */
+
+.profileinfo {
+  width: calc(100vw - 251px);
+}
+
+.username {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  padding: 20px 30px;
+}
+
+.usernameBtn {
+  width: 80px;
+  height: 40px;
+  background-color: white;
+  border-radius: 5px;
+  border: 1px black solid;
+}
+
+.usernameBtn:hover {
+  background-color: var(--buttonhover);
+}
+
+.userinfo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 30px;
+}
+
+.followers {
+  display: flex;
+  gap: 15px;
+}
+
+.posts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 25px;
+  padding-left: 30px;
+}
+
 .postimg {
   width: 300px;
   height: 225px;
+}
+
+.activePost {
+  position: fixed;
+  top: 25%;
+  left: 25%;
+  padding: 20px;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow:0 0 0 1600px rgba(0,0,0,0.65);
+  display: flex;
+}
+
+.activePostImg {
+  width: 300px;
+}
+
+.right {
+  display: flex;
+  width: 200px;
+  flex-direction: column;
+}
+
+.rightTop {
+  display: flex;
+  justify-content: space-between;
+}
+
+.rightBottom {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 0px 5px;
+}
+
+.rightBottom input {
+  width: 160px;
 }
 
 /* dark theme + not automatic normal theme styling */
