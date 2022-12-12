@@ -58,6 +58,10 @@ ul a {
   text-decoration: none;
 }
 
+.search {
+  position: relative;
+}
+
 .searchlogo {
   width: 30px;
   height: 30px;
@@ -65,6 +69,21 @@ ul a {
 
 .searchbar {
   width: 100px;
+}
+
+.searchAndOutput {
+  position: absolute;
+  left: 50px;
+  top: 5px;
+  display: flex;
+  gap: 5px;
+  flex-direction: column;
+}
+
+.searchBack {
+  background-color: white;
+  border: 1px black solid;
+  padding: 5px;
 }
 
 .title {
@@ -141,6 +160,58 @@ li {
   align-items: center;
 }
 
+/* post styling */
+
+.post {
+  width: 500px;
+  height: 500px;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--lightgray);
+  border-radius: 10px;
+}
+
+.posttopbar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 0 20px;
+}
+
+.post img {
+  padding: 0 20px;
+
+}
+
+.likes {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.comments {
+  padding: 0px 20px;
+}
+
+.commentinput {
+  width: 350px;
+
+}
+
+.postimg {
+  width: 200px;
+}
+
+/*homepage styling */ 
+
+.homepagePosts {
+  display: flex;
+  gap: 30px;
+  width: calc(100vw - 251px);
+  flex-direction: column;
+  align-items: center;
+}
+
 /* profile styling */
 
 .profileinfo {
@@ -185,7 +256,7 @@ li {
   padding-left: 30px;
 }
 
-.postimg {
+.profilepostimg {
   width: 300px;
   height: 225px;
 }
@@ -208,12 +279,20 @@ li {
 .right {
   display: flex;
   width: 200px;
+  padding-left: 10px;
   flex-direction: column;
 }
 
 .rightTop {
   display: flex;
   justify-content: space-between;
+  border: 1px black solid;
+  border-radius: 5px;
+  padding: 0px 10px;
+}
+
+.follow {
+  color: blue;
 }
 
 .rightBottom {
@@ -225,6 +304,11 @@ li {
 
 .rightBottom input {
   width: 160px;
+}
+
+.activePostdelete {
+  display: flex;
+  justify-content: flex-end;
 }
 
 /* dark theme + not automatic normal theme styling */
