@@ -4,4 +4,4 @@ export const ThemeContext = createContext(null);
 
 export const UserContext = createContext(null);
 
-export const ViewUserContext = createContext(null);
+export const ViewProfileContext = createContext(null);

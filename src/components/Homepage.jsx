@@ -5,6 +5,7 @@ import { ref, listAll, getDownloadURL } from 'firebase/storage';
 import { storage, db } from '../firebase';
 import { postsColRef } from '../firebase';
 import Post from './post';
+import { v4 } from 'uuid';
 
 
 // eslint-disable-next-line react/prop-types
@@ -14,47 +15,55 @@ const Homepage = () => {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
-    const createPostList = async () => {
-      const querySnapshot = await getDocs(postsColRef);
-      querySnapshot.forEach((doc) => {
-        setPostsId(current => [...current, doc.id]);
-      });
+    const wrapper = async () => {
+      const createPostList = async () => {
+        const querySnapshot = await getDocs(postsColRef);
+        querySnapshot.forEach((doc) => {
+          setPostsId(current => [...current, doc.id]);
+        });
+      };
+      await createPostList();
+      
     };
-    createPostList();
+    wrapper();
   }, []);
 
-  const makeAuto = () => {
-    postsId.forEach(postid => {
-      listAll(ref(storage, postid)).then((response) => {
-        response.items.forEach((item) => {
-          getDownloadURL(item).then(async (url) => {
-            let caption;
-            let likes;
-            let postuserid;
-            const getLikesAndCaption = async () => {
-              const docSnap = await getDoc(doc(db, 'posts', postid));
-              caption = docSnap.data().caption;
-              likes = docSnap.data().likes;
-              postuserid = docSnap.data().userid;
-            };
-            await getLikesAndCaption();
-            let username;
-            const getUsername = async () => {
-              const docSnap = await getDoc(doc(db, 'Users', postuserid));
-              username = docSnap.data().username;
-            };
-            await getUsername();
-            setPosts(current => [...current, <Post postIMG={url} username={username} likes={likes} caption={caption}/>]);
+  useEffect(() => {
+    const makeAuto = () => {
+      postsId.forEach(postid => {
+        listAll(ref(storage, postid)).then((response) => {
+          response.items.forEach((item) => {
+            getDownloadURL(item).then(async (url) => {
+              let caption;
+              let likes;
+              let postuserid;
+              const getLikesAndCaption = async () => {
+                const docSnap = await getDoc(doc(db, 'posts', postid));
+                caption = docSnap.data().caption;
+                likes = docSnap.data().likes;
+                postuserid = docSnap.data().userid;
+              };
+              await getLikesAndCaption();
+              let username;
+              const getUsername = async () => {
+                const docSnap = await getDoc(doc(db, 'Users', postuserid));
+                username = docSnap.data().username;
+              };
+              await getUsername();
+              setPosts(current => [...current, <Post key={v4()} postIMG={url} username={username} likes={likes} caption={caption}/>]);
+            });
           });
         });
       });
-      
-    });
-  };
+    };
+    makeAuto();
+  }, [postsId]);
+
+  
   
   return (
     <div className='homepagePosts'>
-      <button onClick={makeAuto}>makeAuto</button>
+      {/*       <button onClick={makeAuto}>makeAuto</button> */}
       {posts}
     </div>
   );

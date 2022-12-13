@@ -1,13 +1,15 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
+import { ViewProfileContext } from '../contexts';
 
 // eslint-disable-next-line react/prop-types
-const User = ({ user }) => {
-  
-  console.log(user);
-
+const User = ({user}) => {
+  const {viewProfile, setViewProfile} = useContext(ViewProfileContext);
+  useEffect(() => {
+    setViewProfile(user); 
+  });
+  console.log(viewProfile);
   return (
     <div>
-        user
     </div>
   );
 };

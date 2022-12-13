@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link, Outlet } from 'react-router-dom';
 import uploadIMG from '../assets/upload.svg';
 import homeblack from '../assets/homeblack.png';
@@ -8,9 +8,11 @@ import logoutblack from '../assets/logoutblack.png';
 import { signOut } from 'firebase/auth';
 import { auth, db } from '../firebase';
 import { collection, getDocs } from 'firebase/firestore';
+import { ViewProfileContext } from '../contexts';
 
 // eslint-disable-next-line react/prop-types
 const Layout = () => {
+  const {setViewProfile} = useContext(ViewProfileContext);
   const [userList, setUserList] = useState([]);
   const [value, setValue] = useState('');
   const [result, setResult] = useState();
@@ -37,7 +39,6 @@ const Layout = () => {
           });
         }
       }
-      console.log('useEffect fired');
       setShowSearch(true);
     }
   },[value]);

@@ -41,17 +41,20 @@ const Profile = () => {
     }
   }, []);
 
-  const getPosts = () => {
-    postListRefs.forEach((post) => {
-      listAll(ref(storage, post)).then((response) => {
-        response.items.forEach((item) => {
-          getDownloadURL(item).then((url) => {
-            setPostList((prev) => [...prev, [url, post]]);
+  useEffect(() => {
+    const getPosts = () => {
+      postListRefs.forEach((post) => {
+        listAll(ref(storage, post)).then((response) => {
+          response.items.forEach((item) => {
+            getDownloadURL(item).then((url) => {
+              setPostList((prev) => [...prev, [url, post]]);
+            });
           });
         });
       });
-    });
-  };
+    };
+    getPosts();
+  }, [postListRefs]);
 
   const getFirestoreData = async () => {
     console.log(user);
@@ -179,7 +182,6 @@ const Profile = () => {
       </div>
       }
       <button onClick={getFirestoreData}>getFirestoreData</button>
-      <button onClick={getPosts}>getPosts</button>
     </div>
   );
 };
