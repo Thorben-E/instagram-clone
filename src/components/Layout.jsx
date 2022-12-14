@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, Outlet } from 'react-router-dom';
 import uploadIMG from '../assets/upload.svg';
 import homeblack from '../assets/homeblack.png';
@@ -8,14 +8,12 @@ import logoutblack from '../assets/logoutblack.png';
 import { signOut } from 'firebase/auth';
 import { auth, db } from '../firebase';
 import { collection, getDocs } from 'firebase/firestore';
-import { ViewProfileContext } from '../contexts';
 
 // eslint-disable-next-line react/prop-types
 const Layout = () => {
-  const {setViewProfile} = useContext(ViewProfileContext);
   const [userList, setUserList] = useState([]);
   const [value, setValue] = useState('');
-  const [result, setResult] = useState();
+  const [results, setResults] = useState();
   const [showSearch, setShowSearch] = useState(false);
 
   useEffect(() => {
@@ -29,12 +27,12 @@ const Layout = () => {
         });
       };
       fetchUsers();
-      setResult([]);
+      setResults([]);
       let searchQuery = value.toLowerCase();
       for (const key in userList) {
         let user = userList[key].toLowerCase();
         if (user.slice(0, searchQuery.length).indexOf(searchQuery) !== -1 ) {
-          setResult(prevResult => {
+          setResults(prevResult => {
             return [...prevResult, userList[key]];
           });
         }
@@ -61,8 +59,8 @@ const Layout = () => {
             <div className='searchAndOutput'>
               <input type="text" id='searchbar' className="searchbar" onChange={(event) => setValue(event.target.value)} placeholder="Search..." value={value} />
               {value && <div id='searchBack' className="searchBack">
-                {showSearch && result.map((result, index) => (
-                  <Link to='/user' user={result} key={index} >{result}</Link>
+                {showSearch && results.map((result, index) => (
+                  <Link to='/user' userid={''} key={index} >{result}</Link>
                 ))}
               </div>}
             </div>

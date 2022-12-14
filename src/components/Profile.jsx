@@ -49,6 +49,17 @@ const Profile = () => {
     if (auth.currentUser) {
       passUsernameToUsers();
     }
+    const getFirestoreData = async () => {
+      const docSnap = await getDoc(doc(db, 'Users', user.uid));
+      if (docSnap.exists()) {
+        document.getElementById('firestoreData-name').textContent = `${docSnap.data().name}`;
+        document.getElementById('firestoreData-bio').textContent = `${docSnap.data().bio}`;
+        docSnap.data().posts.forEach((post) => {
+          setPostListRefs((prev) => [...prev, post]);
+        });
+      }
+    };
+    getFirestoreData();
   }, []);
 
   useEffect(() => {
@@ -92,7 +103,7 @@ const Profile = () => {
       setPostname(userSnap.data().name);
       setPostid(url[1]);
     };
-    getPostData();
+    await getPostData();
     setPostimg(url[0]); 
     setShowPost(true);
   };
