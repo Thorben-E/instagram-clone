@@ -22,7 +22,7 @@ const Layout = () => {
         const querySnapshot = await getDocs(collection(db, 'Users'));
         let userArr = [];
         querySnapshot.forEach((doc) => {
-          userArr.push(doc.data().username);
+          userArr.push([doc.data().username, doc.id]);
           setUserList(userArr);
         });
       };
@@ -30,7 +30,7 @@ const Layout = () => {
       setResults([]);
       let searchQuery = value.toLowerCase();
       for (const key in userList) {
-        let user = userList[key].toLowerCase();
+        let user = userList[key][0].toLowerCase();
         if (user.slice(0, searchQuery.length).indexOf(searchQuery) !== -1 ) {
           setResults(prevResult => {
             return [...prevResult, userList[key]];
@@ -60,7 +60,7 @@ const Layout = () => {
               <input type="text" id='searchbar' className="searchbar" onChange={(event) => setValue(event.target.value)} placeholder="Search..." value={value} />
               {value && <div id='searchBack' className="searchBack">
                 {showSearch && results.map((result, index) => (
-                  <Link to='/user' userid={''} key={index} >{result}</Link>
+                  <Link to={'/user'} state={{ from: result[1]}} key={index} >{result[0]}</Link>
                 ))}
               </div>}
             </div>
