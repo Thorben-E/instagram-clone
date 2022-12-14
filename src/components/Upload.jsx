@@ -15,7 +15,12 @@ const Upload = () => {
   const upload = async () => {
     const userRef = doc(db, 'Users', user.uid);
     if (imageUpload == null) return;
-    const docRef = await addDoc(postsColRef, {caption: caption, userid: user.uid, likes: 0});
+    const docRef = await addDoc(postsColRef, {
+      caption: caption,
+      userid: user.uid,
+      likes: 0,
+      comments: []
+    });
     await updateDoc(userRef, {
       posts: arrayUnion(docRef.id)
     });
@@ -23,7 +28,6 @@ const Upload = () => {
     uploadBytes(imageRef, imageUpload).then(() => {
       alert('image uploaded');
     });
-
   };
 
   return (

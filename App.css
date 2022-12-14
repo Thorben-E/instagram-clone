@@ -164,11 +164,11 @@ li {
 
 .post {
   width: 500px;
-  height: 500px;
   display: flex;
   flex-direction: column;
   border: 1px solid var(--lightgray);
   border-radius: 10px;
+  margin-top: 20px;
 }
 
 .posttopbar {
@@ -180,7 +180,10 @@ li {
 
 .post img {
   padding: 0 20px;
+}
 
+.postbottembar {
+  margin-bottom: 20px;
 }
 
 .likes {
@@ -189,17 +192,17 @@ li {
   align-items: center;
 }
 
-.comments {
-  padding: 0px 20px;
-}
-
 .commentinput {
   width: 350px;
-
 }
 
 .postimg {
   width: 200px;
+}
+
+.nameAndCaption {
+  display: flex;
+  gap: 5px;
 }
 
 /*homepage styling */ 
@@ -297,13 +300,24 @@ li {
 
 .rightBottom {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: space-between;
   padding: 0px 5px;
 }
 
+.likeContainer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
 .rightBottom input {
-  width: 160px;
+  width: 130px;
+}
+
+.commentAndButton {
+  display: flex;
+  flex-direction: row;
 }
 
 .activePostdelete {

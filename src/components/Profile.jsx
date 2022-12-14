@@ -1,5 +1,5 @@
 import { updateProfile } from 'firebase/auth';
-import { doc, getDoc, setDoc } from 'firebase/firestore';
+import { doc, getDoc, setDoc, updateDoc, arrayUnion } from 'firebase/firestore';
 import { storage } from '../firebase';
 import likeblack from '../assets/likeblack.png';
 import { ref, listAll, getDownloadURL } from 'firebase/storage'; 
@@ -10,16 +10,26 @@ import { db } from '../firebase';
 
 // eslint-disable-next-line react/prop-types
 const Profile = () => {
+  const {user} = useContext(UserContext);
+  //for changing user data
   const [username, setUsername] = useState();
   const [changeName, setChangeName] = useState('');
   const [changeBio, setChangeBio] = useState('');
-  const {user} = useContext(UserContext);
-  const [postList, setPostList] = useState([]);
+  //for showing inputs to change user info
   const [changeUsername, setChangeUsername] = useState(true);
+  //for showing posts 
+  const [postList, setPostList] = useState([]);
   const [postListRefs, setPostListRefs] = useState([]);
+  //enable and disable post popup
   const [showPost, setShowPost] = useState(false);
+  //for post data
   const [postimg, setPostimg] = useState();
   const [postname, setPostname] = useState();
+  const [likesAmount, setLikesAmount] = useState();
+  const [like, setLike] = useState(false);
+  const [postid, setPostid] = useState();
+  const [commentInput, setCommentInput] = useState();
+  const [comments, setComments] = useState();
 
   useEffect(() => {
     postListRefs.forEach((post) => {
@@ -57,7 +67,6 @@ const Profile = () => {
   }, [postListRefs]);
 
   const getFirestoreData = async () => {
-    console.log(user);
     const docSnap = await getDoc(doc(db, 'Users', user.uid));
     if (docSnap.exists()) {
       document.getElementById('firestoreData-name').textContent = `${docSnap.data().name}`;
@@ -68,17 +77,21 @@ const Profile = () => {
     }
   };
 
-  const goToPost = (url) => {
-    console.log(url[1]);
-
+  const goToPost = async (url) => {
     const getPostData = async () => {
       const postRef = doc(db, 'posts', url[1]);
       const postSnap = await getDoc(postRef);
       const userid = postSnap.data().userid;
       const userRef = doc(db, 'Users', userid);
       const userSnap = await getDoc(userRef);
+      setComments([]);
+      await postSnap.data().comments.forEach(comment => {
+        setComments((prev) => [...prev, comment]);  
+      });
+      setLikesAmount(postSnap.data().likes);
       setPostname(userSnap.data().name);
-    }; 
+      setPostid(url[1]);
+    };
     getPostData();
     setPostimg(url[0]); 
     setShowPost(true);
@@ -126,6 +139,34 @@ const Profile = () => {
     );
   };
 
+  const onLikeClick = async () => {
+    const docSnap = await getDoc(doc(db, 'posts', postid));
+    let likes = docSnap.data().likes;
+    if (like === false) {
+      setLikesAmount(likes+1);
+      setLike(true);
+      setDoc(doc(db, 'posts', postid), { likes: likes+1 }, { merge: true });
+    } else if (like === true) {
+      setLikesAmount(likes-1);
+      setLike(false);
+      setDoc(doc(db, 'posts', postid), { likes: likes-1}, { merge: true });
+    }
+  };
+
+  const postComment = async () => {
+    const postRef = doc(db, 'posts', postid);
+    const docSnap = await getDoc(doc(db, 'Users', user.uid));
+    const commentUsername = docSnap.data().username;
+    await updateDoc(postRef, {
+      comments: arrayUnion({
+        comment: commentInput,
+        userid: user.uid,
+        username: commentUsername 
+      }) 
+    });
+    location.reload();
+  };
+
   return (
     <div>
       <div className="profileinfo">
@@ -159,8 +200,8 @@ const Profile = () => {
           </div> </>}
       </div>
       <div className='posts'>
-        {postList.map((url) => {
-          return <img key={url} onClick={() => goToPost(url)} className="postimg" src={url} />;
+        {postList.map((url, index) => {
+          return <img key={index} onClick={() => goToPost(url)} className="postimg" src={url} />;
         })}
       </div>
       {showPost && <div className='activePost'>
@@ -171,12 +212,20 @@ const Profile = () => {
             <p>{postname}</p>
             <p className='follow'>Follow</p>
           </div>
-          <div className="comments">
-            <div>comments hier</div>
-          </div>
+          <ul className='comments'>
+            {comments.map((comment, index) => {
+              return <li key={index} id={comment.userid}><b>{comment.username}:</b> {comment.comment}</li>;
+            })} 
+          </ul>
           <div className="rightBottom">
-            <img src={likeblack} alt="img could not load" className="uploadIMG" />
-            <input type="text" name="comment" id="comment" />
+            <div className="likeContainer">
+              <img src={likeblack} onClick={onLikeClick} alt="img could not load" className="uploadIMG" />
+              <p>{likesAmount}</p>
+            </div>
+            <div className='commentAndButton'>
+              <input type="text" onChange={(event) => setCommentInput(event.target.value)} name="comment" id="comment" />
+              <button onClick={postComment}>comment</button>
+            </div>
           </div>
         </div>
       </div>

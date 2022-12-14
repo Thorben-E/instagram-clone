@@ -50,7 +50,7 @@ const Homepage = () => {
                 username = docSnap.data().username;
               };
               await getUsername();
-              setPosts(current => [...current, <Post key={v4()} postIMG={url} username={username} likes={likes} caption={caption}/>]);
+              setPosts(current => [...current, <Post key={v4()} postIMG={url} postid={postid} username={username} likes={likes} caption={caption}/>]);
             });
           });
         });
