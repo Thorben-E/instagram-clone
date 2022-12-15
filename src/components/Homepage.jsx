@@ -23,7 +23,6 @@ const Homepage = () => {
         });
       };
       await createPostList();
-      
     };
     wrapper();
   }, []);

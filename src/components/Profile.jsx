@@ -215,13 +215,12 @@ const Profile = () => {
           return <img key={index} onClick={() => goToPost(url)} className="postimg" src={url} />;
         })}
       </div>
-      {showPost && <div className='activePost'>
+      
+      {showPost && <><div className='activePostdelete' onClick={() => setShowPost(false)}>X</div><div className='activePost'>
         <img src={postimg} alt="" className='activePostImg'/>
         <div className="right">
-          <div className='activePostdelete' onClick={() => setShowPost(false)}>X</div>
           <div className="rightTop">
-            <p>{postname}</p>
-            <p className='follow'>Follow</p>
+            <p>{postname} </p>
           </div>
           <ul className='comments'>
             {comments.map((comment, index) => {
@@ -231,15 +230,17 @@ const Profile = () => {
           <div className="rightBottom">
             <div className="likeContainer">
               <img src={likeblack} onClick={onLikeClick} alt="img could not load" className="uploadIMG" />
-              <p>{likesAmount}</p>
+            </div>
+            <div className="likes">
+              <p>{likesAmount} likes</p>
             </div>
             <div className='commentAndButton'>
-              <input type="text" onChange={(event) => setCommentInput(event.target.value)} name="comment" id="comment" />
+              <input type="text" onChange={(event) => setCommentInput(event.target.value)} name="comment" id="comment" placeholder='Add a comment...' />
               <button onClick={postComment}>comment</button>
             </div>
           </div>
         </div>
-      </div>
+      </div></>
       }
       <button onClick={getFirestoreData}>getFirestoreData</button>
     </div>

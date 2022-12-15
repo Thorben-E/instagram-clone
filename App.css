@@ -69,6 +69,10 @@ ul a {
 
 .searchbar {
   width: 100px;
+  border: none;
+  border-radius: 3px;
+  padding: 5px;
+  background-color: lightgray;
 }
 
 .searchAndOutput {
@@ -174,26 +178,49 @@ li {
 .posttopbar {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
-  padding: 0 20px;
+  gap: 5px;
+  padding: 0 15px;
 }
 
-.post img {
-  padding: 0 20px;
+.postIMG {
+  width: 500px;
 }
 
 .postbottembar {
   margin-bottom: 20px;
 }
 
+.likeAndSave {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 10px 0px 10px;
+}
+
 .likes {
   display: flex;
   flex-direction: row;
   align-items: center;
+  padding-left: 10px;
+}
+
+.comments {
+  padding: 0 10px;
+  max-height: 30vh;
+  overflow: auto;
 }
 
 .commentinput {
-  width: 350px;
+  width: 400px;
+  border: none;
+  background-color: lightgray;
+  padding: 5px;
+  border-radius: 3px;
+}
+
+.commentPost {
+  padding: 5px 10px;
+  border: none;
+  color: blue;
 }
 
 .postimg {
@@ -203,6 +230,13 @@ li {
 .nameAndCaption {
   display: flex;
   gap: 5px;
+}
+
+.commentul {
+  margin: 0;
+  padding: 0 0 10px 0;
+  max-height: 100px;
+  overflow: auto;
 }
 
 /*homepage styling */ 
@@ -259,39 +293,65 @@ li {
   padding-left: 30px;
 }
 
+.userPosts {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: 30px;
+  gap: 10px;
+}
+
 .profilepostimg {
   width: 300px;
   height: 225px;
 }
 
+.profilePost {
+  width: 200px;
+}
+
+.profilePostIMG {
+  width: 200px;
+}
+
 .activePost {
   position: fixed;
-  top: 25%;
-  left: 25%;
-  padding: 20px;
+  top: 50%;
+  left: 50%;
+  margin-top: -30vh;
+  margin-left: -25vw;
+  width: 50vw;
+  height: 60vh;
   background-color: white;
-  border-radius: 10px;
+  border-radius: 5px;
   box-shadow:0 0 0 1600px rgba(0,0,0,0.65);
   display: flex;
 }
 
 .activePostImg {
-  width: 300px;
+  width: 25vw;
+  align-self: center;
+}
+
+.activePostdelete {
+  position: fixed;
+  top: 16%;
+  left: 76%;
 }
 
 .right {
   display: flex;
-  width: 200px;
-  padding-left: 10px;
+  width: 25vw;
+  height: 60vh;
+  border: 1px solid var(--lightgray);
   flex-direction: column;
 }
 
 .rightTop {
   display: flex;
   justify-content: space-between;
-  border: 1px black solid;
-  border-radius: 5px;
+  border-radius: 3px;
   padding: 0px 10px;
+  border-bottom: 1px solid var(--lightgray);
 }
 
 .follow {
@@ -300,6 +360,8 @@ li {
 
 .rightBottom {
   display: flex;
+  position: absolute;
+  bottom: 0;
   flex-direction: column;
   justify-content: space-between;
   padding: 0px 5px;
@@ -323,19 +385,4 @@ li {
 .activePostdelete {
   display: flex;
   justify-content: flex-end;
-}
-
-/* dark theme + not automatic normal theme styling */
-
-#light {
-  background-color: white;
-}
-
-#dark {
-  background-color: var(--darkgray);
-  color: white;
-}
-
-#dark ul a {
-  color: white;
 }

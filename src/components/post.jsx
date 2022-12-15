@@ -3,6 +3,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import likeblack from '../assets/likeblack.png';
 import { UserContext } from '../contexts';
 import { db } from '../firebase';
+import save from '../assets/save.png';
 
 // eslint-disable-next-line react/prop-types
 const Post = ({ postIMG, caption, likes, username, postid }) => {
@@ -54,28 +55,31 @@ const Post = ({ postIMG, caption, likes, username, postid }) => {
   return (
     <div className="post">
       <div className="posttopbar">
-        <p>{username}</p>
+        <p>{username} •</p>
         <p className='follow'>Follow</p>
       </div>
-      <img src={postIMG} className='postimg' alt="" />
+      <img src={postIMG} className='postIMG' alt="" />
       <div className="postbottembar">
-        <div className="likes">
+        <div className="likeAndSave">
           <img src={likeblack} onClick={onLikeClick} alt="img could not load" className="uploadIMG" />
-          <p>{likesAmount}</p>
+          <img src={save} alt="" /> 
+        </div>
+        <div className="likes">
+          <p><b>{likesAmount} likes</b></p>
         </div>
         <div className="comments">
           <div className="nameAndCaption">
             <p><b>{username}:</b></p>
             <p>{caption}</p>
           </div>
-          <ul>
+          <ul className='commentul'>
             {comments.map((comment, index) => {
-              return <li key={index} id={comment.userid}><b>{comment.username}:</b> {comment.comment}</li>;
+              return <li className='commentli' key={index} id={comment.userid}><b>{comment.username}:</b> {comment.comment}</li>;
             })} 
           </ul>
-          <div>
+          <div className='inputAndButton'>
             <input type="text" onChange={(event) => setCommentInput(event.target.value)} className='commentinput' id="commenttext" placeholder="Put comment here"/>
-            <button onClick={postComment}>Post comment</button>    
+            <button onClick={postComment} className='commentPost'><b>Post</b></button>    
           </div>
         </div>
       </div>
