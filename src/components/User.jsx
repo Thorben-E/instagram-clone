@@ -1,22 +1,21 @@
 import { doc, getDoc, setDoc, getDocs, updateDoc, arrayUnion } from 'firebase/firestore';
 import { ref, listAll, getDownloadURL } from 'firebase/storage'; 
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { db, storage } from '../firebase';
 import { postsColRef } from '../firebase';
 import likeblack from '../assets/likeblack.png';
 import ProfilePost from './ProfilePost';
 import { v4 } from 'uuid';
+import { UserContext } from '../contexts';
 
 // eslint-disable-next-line react/prop-types
 const User = () => {
+  const {user} = useContext(UserContext);
   const [userid, setUserid] = useState();
   const [username, setUsername] = useState();
   const [name, setName] = useState();
   const [bio, setBio] = useState();
-  //for showing posts 
-  const [postList, setPostList] = useState([]);
-  const [postListRefs, setPostListRefs] = useState([]);
   //enable and disable post popup
   const [showPost, setShowPost] = useState(false);
   //for post data
@@ -74,7 +73,9 @@ const User = () => {
                 username = docSnap.data().username;
               };
               await getUsername();
-              setPosts(current => [...current, <ProfilePost key={v4()} postIMG={url} postid={postid} username={username} likes={likes} caption={caption}/>]);
+              if (postuserid != user.uid) {
+                setPosts(current => [...current, <ProfilePost key={v4()} postIMG={url} postid={postid} username={username} likes={likes} caption={caption}/>]);
+              }
             });
           });
         });
@@ -82,16 +83,6 @@ const User = () => {
     };
     makeAuto();
   }, [postsId]);
-
-  useEffect(() => {
-    const getFirestoreData = async () => {
-      const docSnap = await getDoc(doc(db, 'Users', userid));
-      docSnap.data().posts.forEach((post) => {
-        setPostListRefs((prev) => [...prev, post]);
-      });
-    };
-    getFirestoreData();
-  }, [bio]);
 
   const goToPost = async (url) => {
     const getPostData = async () => {
@@ -142,7 +133,7 @@ const User = () => {
   };
 
   return (
-    <div>
+    <div className='profileinfoWrap'>
       <div className="profileinfo">
         <> <div className='username'>
           <h2>{username}</h2>
@@ -157,9 +148,6 @@ const User = () => {
       </div>
       <div className='userPosts'>
         {posts}
-        {postList.map((url, index) => {
-          return <img key={index} onClick={() => goToPost(url)} className="postimg" src={url} />;
-        })}
       </div>
       {showPost && <div className='activePost'>
         <img src={postimg} alt="" className='activePostImg'/>

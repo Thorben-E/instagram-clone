@@ -20,18 +20,18 @@
 body {
   margin: 0;
   font-family: 'Roboto';
+  min-width: 1050px;
 }
 
 #root {
   display: flex;
   height: 100vh;
   width: 100vw;
+  align-items: center;
   justify-content: center;
-  align-items: center; 
 }
 
 .App {
-  width: 100vw;
   height: 100vh;
   display: flex;
 }
@@ -43,7 +43,8 @@ nav {
   justify-content: space-between;
   flex-direction: column;
   border-right: 1px solid var(--lightgray);
-  width: 250px;
+  min-width: 250px;
+  max-width: 250px;
 }
 
 ul {
@@ -139,7 +140,7 @@ li {
 
 .loginForm-container {
   display: flex;
-  width: calc(100% - 251px);
+  width: 100vw;
   align-items: center;
   justify-content: center;
 }
@@ -158,7 +159,7 @@ li {
 
 .upload-container {
   display: flex;
-  width: calc(100% - 251px);
+  width: calc(100vw - 251px);
   height: 100vh;
   justify-content: center;
   align-items: center;
@@ -224,7 +225,7 @@ li {
 }
 
 .postimg {
-  width: 200px;
+  width: 230px;
 }
 
 .nameAndCaption {
@@ -251,8 +252,15 @@ li {
 
 /* profile styling */
 
-.profileinfo {
+.profileinfoWrap {
+  display: flex;
   width: calc(100vw - 251px);
+  flex-direction: column;
+  align-items: center;
+}
+
+.profileinfo {
+  width: 800px;
 }
 
 .username {
@@ -288,16 +296,22 @@ li {
 
 .posts {
   display: flex;
+  width: 800px;
   flex-wrap: wrap;
   gap: 25px;
-  padding-left: 30px;
+  padding-left: 60px;
 }
 
 .userPosts {
   display: flex;
   flex-wrap: wrap;
-  margin-left: 30px;
+  width: 800px;
   gap: 10px;
+  padding-left: 60px;
+}
+
+.profileContainer {
+  width: calc(100vw - 251px);
 }
 
 .profilepostimg {
@@ -305,12 +319,8 @@ li {
   height: 225px;
 }
 
-.profilePost {
-  width: 200px;
-}
-
 .profilePostIMG {
-  width: 200px;
+  width: 230px;
 }
 
 .activePost {

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link, Outlet } from 'react-router-dom';
 import uploadIMG from '../assets/upload.svg';
 import homeblack from '../assets/homeblack.png';
@@ -8,9 +8,11 @@ import logoutblack from '../assets/logoutblack.png';
 import { signOut } from 'firebase/auth';
 import { auth, db } from '../firebase';
 import { collection, getDocs } from 'firebase/firestore';
+import { UserContext } from '../contexts';
 
 // eslint-disable-next-line react/prop-types
 const Layout = () => {
+  const {user} = useContext(UserContext);
   const [userList, setUserList] = useState([]);
   const [value, setValue] = useState('');
   const [results, setResults] = useState();
@@ -71,7 +73,7 @@ const Layout = () => {
           </li>
           <li>
             <img src={profileblack} alt="img could not load" className="uploadIMG" /> 
-            <Link to='/profile' >Profile</Link>
+            <Link to='/profile' state={{ from: user.uid }} >Profile</Link>
           </li>
           <li onClick={logout}>
             <img src={logoutblack} alt="img could not load" className="uploadIMG" /> 

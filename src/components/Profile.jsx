@@ -7,10 +7,14 @@ import React, { useContext, useEffect, useState } from 'react';
 import { UserContext } from '../contexts';
 import { auth } from '../firebase';
 import { db } from '../firebase';
+import { useLocation } from 'react-router-dom';
 
 // eslint-disable-next-line react/prop-types
 const Profile = () => {
   const {user} = useContext(UserContext);
+  const location = useLocation();
+  const { from } = location.state;
+  const [userid, setUserid] = useState(from);
   //for changing user data
   const [username, setUsername] = useState();
   const [changeName, setChangeName] = useState('');
@@ -32,35 +36,44 @@ const Profile = () => {
   const [comments, setComments] = useState();
 
   useEffect(() => {
-    postListRefs.forEach((post) => {
-      listAll(post).then((response) => {
-        response.items.forEach((item) => {
-          getDownloadURL(item).then((url) => {
-            setPostList((prev) => [...prev, url]);
+    const wrapper = async () => {
+      await postListRefs.forEach((post) => {
+        listAll(post).then((response) => {
+          response.items.forEach((item) => {
+            getDownloadURL(item).then((url) => {
+              setPostList((prev) => [...prev, url]);
+            });
           });
         });
       });
-    });
-    const passUsernameToUsers = async () => {
-      setDoc(doc(db, 'Users', user.uid), {
-        username: user.displayName
-      }, { merge: true });
+      const passUsernameToUsers = async () => {
+        setDoc(doc(db, 'Users', user.uid), {
+          username: user.displayName
+        }, { merge: true });
+      };
+      if (auth.currentUser) {
+        await passUsernameToUsers();
+      }
     };
-    if (auth.currentUser) {
-      passUsernameToUsers();
-    }
+    wrapper();
+    setUserid(from);
+  }, []);
+
+  useEffect(() => {
     const getFirestoreData = async () => {
-      const docSnap = await getDoc(doc(db, 'Users', user.uid));
-      if (docSnap.exists()) {
+      const docSnap = await getDoc(doc(db, 'Users', from));
+      if (Object.keys(docSnap.data()).length > 1) {
         document.getElementById('firestoreData-name').textContent = `${docSnap.data().name}`;
         document.getElementById('firestoreData-bio').textContent = `${docSnap.data().bio}`;
         docSnap.data().posts.forEach((post) => {
           setPostListRefs((prev) => [...prev, post]);
         });
+      } else {
+        getFirestoreData();
       }
     };
     getFirestoreData();
-  }, []);
+  }, [userid]);
 
   useEffect(() => {
     const getPosts = () => {
@@ -76,17 +89,6 @@ const Profile = () => {
     };
     getPosts();
   }, [postListRefs]);
-
-  const getFirestoreData = async () => {
-    const docSnap = await getDoc(doc(db, 'Users', user.uid));
-    if (docSnap.exists()) {
-      document.getElementById('firestoreData-name').textContent = `${docSnap.data().name}`;
-      document.getElementById('firestoreData-bio').textContent = `${docSnap.data().bio}`;
-      docSnap.data().posts.forEach((post) => {
-        setPostListRefs((prev) => [...prev, post]);
-      });
-    }
-  };
 
   const goToPost = async (url) => {
     const getPostData = async () => {
@@ -115,7 +117,6 @@ const Profile = () => {
   
   const updateUserData = async () => {
     if (changeName != '') {
-      console.log('it fires');
       const changename = async () => {
         await setDoc(doc(db, 'Users', user.uid), {
           name: changeName
@@ -179,7 +180,7 @@ const Profile = () => {
   };
 
   return (
-    <div>
+    <div className='profileinfoWrap'>
       <div className="profileinfo">
         {changeUsername ? 
           <> <div className='username'>
@@ -242,7 +243,6 @@ const Profile = () => {
         </div>
       </div></>
       }
-      <button onClick={getFirestoreData}>getFirestoreData</button>
     </div>
   );
 };
