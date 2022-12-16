@@ -4,7 +4,7 @@ import { auth } from '../firebase';
 
 // eslint-disable-next-line react/prop-types
 const SingUp = ({ signupClick }) => {
-  // states
+  // user inputs states
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
 
@@ -27,7 +27,7 @@ const SingUp = ({ signupClick }) => {
       <div className="loginForm">
         <div className="loginFormTop">
           <h1 className="title">Instagram</h1>
-          <p>Sign up to see pictures and video's from friends.</p>
+          <p>Sign up to see pictures and video&apos;s from friends.</p>
           <input type="text" name="email" onChange={(event) => {
             setEmail(event.target.value);
           }} id="email" placeholder="email"/>

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { UserContext, ViewProfileContext } from './contexts';
+import { UserContext } from './contexts';
 
 import Login from './components/Login';
 import Upload from './components/Upload';
@@ -14,8 +14,8 @@ import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from './firebase';
 
 function App() {
+  // user logged in ? true : false
   const [user, setUser] = useState(true);
-  const [viewProfile, setViewProfile] = useState('hello');
   
   onAuthStateChanged(auth, (currentUser) => {
     setUser(currentUser);
@@ -25,16 +25,14 @@ function App() {
     <BrowserRouter>
       <UserContext.Provider value={{user}}>
         {user ? <div className="App" >
-          <ViewProfileContext.Provider value={{ viewProfile, setViewProfile }}>
-            <Layout />
-            <Routes>
-              <Route index element={<Homepage />} />
-              <Route path='login' element={<Login />} />
-              <Route path='upload' element={<Upload />} />
-              <Route path='user' element={<User />} />
-              <Route path='profile' element={<Profile />} />
-            </Routes>
-          </ViewProfileContext.Provider>
+          <Layout />
+          <Routes>
+            <Route index element={<Homepage />} />
+            <Route path='login' element={<Login />} />
+            <Route path='upload' element={<Upload />} />
+            <Route path='user' element={<User />} />
+            <Route path='profile' element={<Profile />} />
+          </Routes>
         </div> : <Login />}
       </UserContext.Provider>
     </BrowserRouter>

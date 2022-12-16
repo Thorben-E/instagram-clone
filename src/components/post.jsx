@@ -4,15 +4,20 @@ import likeblack from '../assets/likeblack.png';
 import { UserContext } from '../contexts';
 import { db } from '../firebase';
 import save from '../assets/save.png';
+import likered from '../assets/likered.png';
 
 // eslint-disable-next-line react/prop-types
 const Post = ({ postIMG, caption, likes, username, postid }) => {
-  const [likesAmount, setLikesAmount] = useState(likes);
-  const [like, setLike] = useState(false);
-  const [comments, setComments] = useState([]);
-  const [commentInput, setCommentInput] = useState();
   const {user} = useContext(UserContext);
+  const [likesAmount, setLikesAmount] = useState(likes);
+  // like active ? red like : black like
+  const [like, setLike] = useState(false);
+  // array with all comments
+  const [comments, setComments] = useState([]);
+  // input for new comment
+  const [commentInput, setCommentInput] = useState();
 
+  // set post comments
   useEffect(() => {
     setComments([]);
     const wrap = async () => {
@@ -24,6 +29,7 @@ const Post = ({ postIMG, caption, likes, username, postid }) => {
     wrap();
   }, []);
 
+  // increment or decrement like
   const onLikeClick = async () => {
     const docSnap = await getDoc(doc(db, 'posts', postid));
     let likes = docSnap.data().likes;
@@ -61,7 +67,7 @@ const Post = ({ postIMG, caption, likes, username, postid }) => {
       <img src={postIMG} className='postIMG' alt="" />
       <div className="postbottembar">
         <div className="likeAndSave">
-          <img src={likeblack} onClick={onLikeClick} alt="img could not load" className="uploadIMG" />
+          {!like ? <img src={likeblack} onClick={onLikeClick} alt="img could not load" className="uploadIMG" /> : <img src={likered} onClick={onLikeClick} alt="img could not load" className="uploadIMG" />}
           <img src={save} alt="" /> 
         </div>
         <div className="likes">

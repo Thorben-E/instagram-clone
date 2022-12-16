@@ -13,11 +13,16 @@ import { UserContext } from '../contexts';
 // eslint-disable-next-line react/prop-types
 const Layout = () => {
   const {user} = useContext(UserContext);
+  // array for all users
   const [userList, setUserList] = useState([]);
+  // searchbar input
   const [value, setValue] = useState('');
+  // user matches with value in searchbar
   const [results, setResults] = useState();
+  // divs with results from ^
   const [showSearch, setShowSearch] = useState(false);
 
+  // shows users that match with value in searchbar
   useEffect(() => {
     if (value.length > 0) {
       const fetchUsers = async () => {
@@ -43,6 +48,7 @@ const Layout = () => {
     }
   },[value]);
   
+  //firebase logout function
   const logout = async () => {
     await signOut(auth);
   };  

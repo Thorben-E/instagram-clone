@@ -10,10 +10,11 @@ import { v4 } from 'uuid';
 
 // eslint-disable-next-line react/prop-types
 const Homepage = () => {
-
+  //arrays for showing posts
   const [postsId, setPostsId] = useState([]);
   const [posts, setPosts] = useState([]);
 
+  // for creating array with postids 
   useEffect(() => {
     const wrapper = async () => {
       const createPostList = async () => {
@@ -27,6 +28,7 @@ const Homepage = () => {
     wrapper();
   }, []);
 
+  // for setting array with all posts
   useEffect(() => {
     const makeAuto = () => {
       postsId.forEach(postid => {
@@ -58,11 +60,8 @@ const Homepage = () => {
     makeAuto();
   }, [postsId]);
 
-  
-  
   return (
     <div className='homepagePosts'>
-      {/*       <button onClick={makeAuto}>makeAuto</button> */}
       {posts}
     </div>
   );

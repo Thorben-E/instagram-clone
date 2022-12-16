@@ -2,6 +2,7 @@ import { updateProfile } from 'firebase/auth';
 import { doc, getDoc, setDoc, updateDoc, arrayUnion } from 'firebase/firestore';
 import { storage } from '../firebase';
 import likeblack from '../assets/likeblack.png';
+import likered from '../assets/likered.png';
 import { ref, listAll, getDownloadURL } from 'firebase/storage'; 
 import React, { useContext, useEffect, useState } from 'react';
 import { UserContext } from '../contexts';
@@ -11,6 +12,7 @@ import { useLocation } from 'react-router-dom';
 
 // eslint-disable-next-line react/prop-types
 const Profile = () => {
+  //get userid
   const {user} = useContext(UserContext);
   const location = useLocation();
   const { from } = location.state;
@@ -35,6 +37,7 @@ const Profile = () => {
   const [commentInput, setCommentInput] = useState();
   const [comments, setComments] = useState();
 
+  // set posts array and set username in User database
   useEffect(() => {
     const wrapper = async () => {
       await postListRefs.forEach((post) => {
@@ -59,6 +62,7 @@ const Profile = () => {
     setUserid(from);
   }, []);
 
+  // set postsRefs with userid
   useEffect(() => {
     const getFirestoreData = async () => {
       const docSnap = await getDoc(doc(db, 'Users', from));
@@ -75,6 +79,7 @@ const Profile = () => {
     getFirestoreData();
   }, [userid]);
 
+  // get url for posts
   useEffect(() => {
     const getPosts = () => {
       postListRefs.forEach((post) => {
@@ -90,6 +95,7 @@ const Profile = () => {
     getPosts();
   }, [postListRefs]);
 
+  // on postimg click
   const goToPost = async (url) => {
     const getPostData = async () => {
       const postRef = doc(db, 'posts', url[1]);
@@ -110,6 +116,7 @@ const Profile = () => {
     setShowPost(true);
   };
 
+  // on user data
   const onUpdate = () => {
     updateUserData();
     setChangeUsername(true);
@@ -151,6 +158,7 @@ const Profile = () => {
     );
   };
 
+  // increment or decrement likes
   const onLikeClick = async () => {
     const docSnap = await getDoc(doc(db, 'posts', postid));
     let likes = docSnap.data().likes;
@@ -164,7 +172,7 @@ const Profile = () => {
       setDoc(doc(db, 'posts', postid), { likes: likes-1}, { merge: true });
     }
   };
-
+  
   const postComment = async () => {
     const postRef = doc(db, 'posts', postid);
     const docSnap = await getDoc(doc(db, 'Users', user.uid));
@@ -230,7 +238,7 @@ const Profile = () => {
           </ul>
           <div className="rightBottom">
             <div className="likeContainer">
-              <img src={likeblack} onClick={onLikeClick} alt="img could not load" className="uploadIMG" />
+              {!like ? <img src={likeblack} onClick={onLikeClick} alt="img could not load" className="uploadIMG" /> : <img src={likered} onClick={onLikeClick} alt="img could not load" className="uploadIMG" />}
             </div>
             <div className="likes">
               <p>{likesAmount} likes</p>

@@ -4,15 +4,17 @@ import SingUp from './SignUp';
 import { auth } from '../firebase';
 
 const Login = () => {
-  // states
+  // login input and signup states
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null); 
   const [signup, setSignup] = useState(false);
 
+  // change between signup and login
   const signupClick = () => {
     setSignup((curr) => curr === false ? true : false);
   };
 
+  // login to firebase with input values
   const login = async () => {
     try {
       const user = await signInWithEmailAndPassword(

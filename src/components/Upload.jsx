@@ -8,9 +8,10 @@ import { db } from '../firebase';
 import { UserContext } from '../contexts';
 
 const Upload = () => {
+  const {user} = useContext(UserContext);
+  // values for post data
   const [caption, setCaption] = useState();
   const [imageUpload, setImageUpload] = useState(null);
-  const {user} = useContext(UserContext);
 
   const upload = async () => {
     const userRef = doc(db, 'Users', user.uid);

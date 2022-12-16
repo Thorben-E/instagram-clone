@@ -3,11 +3,13 @@ import { doc, getDoc, setDoc, updateDoc, arrayUnion } from 'firebase/firestore';
 import { db, storage } from '../firebase';
 import { ref, listAll, getDownloadURL } from 'firebase/storage'; 
 import likeblack from '../assets/likeblack.png';
+import likered from '../assets/likered.png';
 import { UserContext } from '../contexts';
 
 // eslint-disable-next-line react/prop-types
 const Post = ({ postIMG, postid }) => {
   const {user} = useContext(UserContext);
+  // true ? show popup : do not show popup
   const [showPost, setShowPost] = useState(false);
   //for post data
   const [postimg, setPostimg] = useState();
@@ -87,7 +89,7 @@ const Post = ({ postIMG, postid }) => {
         </ul>
         <div className="rightBottom">
           <div className="likeContainer">
-            <img src={likeblack} onClick={onLikeClick} alt="img could not load" className="uploadIMG" />
+            {!like ? <img src={likeblack} onClick={onLikeClick} alt="img could not load" className="uploadIMG" /> : <img src={likered} onClick={onLikeClick} alt="img could not load" className="uploadIMG" />}
           </div>
           <div className="likes">
             <p>{likesAmount} likes</p>
