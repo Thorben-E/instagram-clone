@@ -1,5 +1,7 @@
 Instagram clone built with reactJS, firebase auth, storage and firestore. 
 
+Live: https://inquisitive-sunburst-bbd98e.netlify.app/
+
 test username: test@test.com
 test password: test1234
 
