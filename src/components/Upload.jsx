@@ -1,6 +1,6 @@
 import { addDoc, doc, arrayUnion, updateDoc } from 'firebase/firestore';
 import { ref, uploadBytes } from 'firebase/storage';
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { postsColRef } from '../firebase';
 import { storage } from '../firebase';
 import { v4 } from 'uuid';
@@ -12,6 +12,16 @@ const Upload = () => {
   // values for post data
   const [caption, setCaption] = useState();
   const [imageUpload, setImageUpload] = useState(null);
+
+  useEffect(() => {
+    if (document.getElementById('searchBack') || document.getElementById('searchbar')) {
+      if (document.getElementById('searchBack')) {
+        document.getElementById('searchBack').style.display = 'none';
+      } if (document.getElementById('searchbar')) {
+        document.getElementById('searchbar').style.display = 'none';
+      }
+    }
+  });
 
   const upload = async () => {
     const userRef = doc(db, 'Users', user.uid);
@@ -37,8 +47,8 @@ const Upload = () => {
         <h3>Upload a post!</h3>
         <input type="file" name="file" onChange={(event) => setImageUpload(event.target.files[0])} id="file" />
         <label htmlFor="title">Write a caption:</label>
-        <input type="text" onChange={(event) => setCaption(event.target.value)} name="caption" id="caption" />
-        <button onClick={upload}>Upload</button>
+        <input type="text" className='form-control uploadinput' onChange={(event) => setCaption(event.target.value)} name="caption" id="caption" />
+        <button onClick={upload} className='btn btn-primary'>Upload</button>
       </div>
     </div>
   );

@@ -35,12 +35,12 @@ const Login = () => {
           <div className="loginForm">
             <div className="loginFormTop">
               <h1 className="title">Instagram</h1>
-              <input type="text" name="email" onChange={(event) => setEmail(event.target.value)} id="email" placeholder="email"/>
-              <input type="password" name="password" onChange={(event) => setPassword(event.target.value)} id="password" placeholder="password" />
-              <button type="submit" onClick={login}>Login</button>
+              <input type="text" className='form-control' name="email" onChange={(event) => setEmail(event.target.value)} id="email" placeholder="email"/>
+              <input type="password" className='form-control' name="password" onChange={(event) => setPassword(event.target.value)} id="password" placeholder="password" />
+              <button type="submit" className='btn btn-primary' onClick={login}>Login</button>
             </div>
             <div className="loginFormBottom">
-              <p>No account? <a onClick={signupClick}><b>Sign up here.</b></a></p>
+              <p>No account? <a onClick={signupClick} className='link'><b>Sign up here.</b></a></p>
             </div>
           </div>  
         </div> </>}

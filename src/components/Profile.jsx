@@ -60,6 +60,13 @@ const Profile = () => {
     };
     wrapper();
     setUserid(from);
+    if (document.getElementById('searchBack') || document.getElementById('searchbar')) {
+      if (document.getElementById('searchBack')) {
+        document.getElementById('searchBack').style.display = 'none';
+      } if (document.getElementById('searchbar')) {
+        document.getElementById('searchbar').style.display = 'none';
+      }
+    }
   }, []);
 
   // set postsRefs with userid
@@ -188,37 +195,35 @@ const Profile = () => {
   };
 
   return (
-    <div className='profileinfoWrap'>
-      <div className="profileinfo">
-        {changeUsername ? 
-          <> <div className='username'>
-            <h2>{user.displayName}</h2>
-            <button className='usernameBtn' onClick={() => setChangeUsername(false)}>Change Userdata</button>
-          </div><div className='userinfo'><div className='name-bio'>
+    <div className="profileinfo">
+      {changeUsername ? 
+        <> <div className='username'>
+          <h2>{user.displayName}</h2>
+          <button className='usernameBtn' onClick={() => setChangeUsername(false)}>Change Userdata</button>
+        </div><div className='userinfo'><div className='name-bio'>
+          <b><p id='firestoreData-name'></p></b>
+          <p id='firestoreData-bio'></p>
+        </div><div className='followers'>
+          <p>2 messages</p>
+          <p>4 followers</p>
+          <p>5 following</p>
+        </div></div> </> : 
+        <> <div className="username">
+          <input type="text" onChange={(event) => setUsername(event.target.value)} name="username" id="username" placeholder='username...' />
+          <button className='usernameBtn' onClick={onUpdate} >Update data</button>
+        </div><div className='userinfo'>
+          <div className='name-bio'>
+            <input type="text" name="name" id="name" onChange={(event) => setChangeName(event.target.value)} placeholder='name...' />
+            <input type="text" name="bio" id="bio" onChange={(event) => setChangeBio(event.target.value)} placeholder='bio...' />
             <b><p id='firestoreData-name'></p></b>
             <p id='firestoreData-bio'></p>
-          </div><div className='followers'>
+          </div>
+          <div className='followers'>
             <p>2 messages</p>
             <p>4 followers</p>
             <p>5 following</p>
-          </div></div> </> : 
-          <> <div className="username">
-            <input type="text" onChange={(event) => setUsername(event.target.value)} name="username" id="username" placeholder='username...' />
-            <button className='usernameBtn' onClick={onUpdate} >Update data</button>
-          </div><div className='userinfo'>
-            <div className='name-bio'>
-              <input type="text" name="name" id="name" onChange={(event) => setChangeName(event.target.value)} placeholder='name...' />
-              <input type="text" name="bio" id="bio" onChange={(event) => setChangeBio(event.target.value)} placeholder='bio...' />
-              <b><p id='firestoreData-name'></p></b>
-              <p id='firestoreData-bio'></p>
-            </div>
-            <div className='followers'>
-              <p>2 messages</p>
-              <p>4 followers</p>
-              <p>5 following</p>
-            </div>
-          </div> </>}
-      </div>
+          </div>
+        </div> </>}
       <div className='posts'>
         {postList.map((url, index) => {
           return <img key={index} onClick={() => goToPost(url)} className="postimg" src={url} />;

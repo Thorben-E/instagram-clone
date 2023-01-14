@@ -28,16 +28,16 @@ const SingUp = ({ signupClick }) => {
         <div className="loginFormTop">
           <h1 className="title">Instagram</h1>
           <p>Sign up to see pictures and video&apos;s from friends.</p>
-          <input type="text" name="email" onChange={(event) => {
+          <input type="text" name="email" className='form-control' onChange={(event) => {
             setEmail(event.target.value);
           }} id="email" placeholder="email"/>
-          <input type="password" name="password" onChange={(event) => {
+          <input type="password" name="password" className='form-control' onChange={(event) => {
             setPassword(event.target.value);
           }} id="password" placeholder="password" />
-          <button onClick={register}>Sign up</button>
+          <button className='btn btn-primary' onClick={register}>Sign up</button>
         </div>
         <div className="loginFormBottom">
-          <p>Do you have an account? <a onClick={signupClick}><b>Login here.</b></a></p>
+          <p>Do you have an account? <a onClick={signupClick} className='link'><b>Login here.</b></a></p>
         </div>
       </div>
     </>

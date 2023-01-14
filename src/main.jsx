@@ -26,13 +26,15 @@ function App() {
       <UserContext.Provider value={{user}}>
         {user ? <div className="App" >
           <Layout />
-          <Routes>
-            <Route index element={<Homepage />} />
-            <Route path='login' element={<Login />} />
-            <Route path='upload' element={<Upload />} />
-            <Route path='user' element={<User />} />
-            <Route path='profile' element={<Profile />} />
-          </Routes>
+          <div className="container">
+            <Routes>
+              <Route index element={<Homepage />} />
+              <Route path='login' element={<Login />} />
+              <Route path='upload' element={<Upload />} />
+              <Route path='user' element={<User />} />
+              <Route path='profile' element={<Profile />} />
+            </Routes>
+          </div>
         </div> : <Login />}
       </UserContext.Provider>
     </BrowserRouter>

@@ -37,6 +37,13 @@ const User = () => {
       await createPostList();
     };
     wrapper();
+    if (document.getElementById('searchBack') || document.getElementById('searchbar')) {
+      if (document.getElementById('searchBack')) {
+        document.getElementById('searchBack').style.display = 'none';
+      } if (document.getElementById('searchbar')) {
+        document.getElementById('searchbar').style.display = 'none';
+      }
+    }
   }, []);
 
   // runs after postsId is updated, sets all the posts inside array

@@ -39,19 +39,20 @@ body {
 /* sidebar styling */
 
 nav {
+  position: fixed;
+  left: 0;
   display: flex;
   justify-content: space-between;
   flex-direction: column;
-  border-right: 1px solid var(--lightgray);
-  min-width: 250px;
-  max-width: 250px;
+  width: 200px;
+  height: 100vh;
 }
 
 ul {
   list-style: none;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 20px;
 }
 
 ul a {
@@ -101,9 +102,26 @@ ul a {
   height: 35px;
 }
 
-#dark .uploadIMG {
-  width: 35px;
-  height: 35px;
+a {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+
+h3 {
+  font-size: 20px;
+}
+
+.instalogo {
+  padding: 20px 0;
+}
+
+.container {
+  width: calc(100vw - 250px);
+  margin-left: 250px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 li {
@@ -145,6 +163,10 @@ li {
   justify-content: center;
 }
 
+.link {
+  text-decoration: none;
+}
+
 .upload {
   display: flex;
   flex-direction: column;
@@ -165,10 +187,14 @@ li {
   align-items: center;
 }
 
+.uploadinput {
+  width: ;
+} 
+
 /* post styling */
 
 .post {
-  width: 500px;
+  max-width: 500px;
   display: flex;
   flex-direction: column;
   border: 1px solid var(--lightgray);
@@ -184,7 +210,8 @@ li {
 }
 
 .postIMG {
-  width: 500px;
+  width: auto;
+  object-fit: scale-down;
 }
 
 .postbottembar {
@@ -236,8 +263,10 @@ li {
 .commentul {
   margin: 0;
   padding: 0 0 10px 0;
-  max-height: 100px;
+  max-height: 90px;
   overflow: auto;
+  display: flex;
+  flex-direction: column;
 }
 
 /*homepage styling */ 
@@ -245,22 +274,15 @@ li {
 .homepagePosts {
   display: flex;
   gap: 30px;
-  width: calc(100vw - 251px);
+  width: calc(100vw - 250px);
   flex-direction: column;
   align-items: center;
 }
 
 /* profile styling */
 
-.profileinfoWrap {
-  display: flex;
-  width: calc(100vw - 251px);
-  flex-direction: column;
-  align-items: center;
-}
-
 .profileinfo {
-  width: 800px;
+  width: calc(100vw - 250px);
 }
 
 .username {
@@ -271,8 +293,6 @@ li {
 }
 
 .usernameBtn {
-  width: 80px;
-  height: 40px;
   background-color: white;
   border-radius: 5px;
   border: 1px black solid;
@@ -296,7 +316,6 @@ li {
 
 .posts {
   display: flex;
-  width: 800px;
   flex-wrap: wrap;
   gap: 25px;
   padding-left: 60px;
@@ -305,7 +324,6 @@ li {
 .userPosts {
   display: flex;
   flex-wrap: wrap;
-  width: 800px;
   gap: 10px;
   padding-left: 60px;
 }
@@ -395,4 +413,113 @@ li {
 .activePostdelete {
   display: flex;
   justify-content: flex-end;
+}
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 720px) {
+  .container {
+    width: 100vw;
+    margin-left: 0;
+  }
+
+  nav {
+    position: fixed;
+    bottom: 0;
+  }
+
+  .nav-text {
+    display: none;
+  }
+
+  ul {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .instalogo {
+    display: none;
+  }
+
+  .post {
+    width: calc(100vw - 50px);
+  }
+
+  .profileinfo {
+    width: 100vw;
+    height: calc(100vh - 200px);
+  }
+
+  .searchbar {
+    position: absolute;
+    bottom: 15px;
+    left: -80px;
+  }
+
+  .activePost {
+    position: absolute;
+    top: 50;
+    left: 50;
+    margin-top: -30vh;
+    margin-left: -25vw;
+  }
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 720px) {
+  .container {
+    width: calc(100vw - 100px);
+    margin-left: 0;
+  }
+  
+  nav {
+    width: 100px;
+  }
+
+  .nav-text {
+    display: none;
+  }
+
+  .homepagePosts {
+    width: calc(100vw - 100px);
+  }
+
+  .post {
+    width: calc(100vw - 200);
+  }
+
+  .container {
+    width: calc(100vw - 100px);
+    margin-left: 40px;
+  }
+
+  .profileinfo {
+    width: calc(100vw - 100px);
+  }
+
+  .activePost {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 0;
+  }
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+  .container {
+    width: calc(100vw - 250px);
+    margin-left: 250px;
+  }
+  
+  .instalogo {
+    display: none;
+  }
+
+  nav {
+    width: 250px;
+  }
+
+  .nav-text {
+    display: block;
+  }
 }

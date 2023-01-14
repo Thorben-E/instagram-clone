@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Link, Outlet } from 'react-router-dom';
+import instablack from '../assets/instablack.png';
 import uploadIMG from '../assets/upload.svg';
 import homeblack from '../assets/homeblack.png';
 import searchblack from '../assets/searchblack.png';
@@ -37,6 +38,7 @@ const Layout = () => {
       setResults([]);
       let searchQuery = value.toLowerCase();
       for (const key in userList) {
+        console.log(userList);
         let user = userList[key][0].toLowerCase();
         if (user.slice(0, searchQuery.length).indexOf(searchQuery) !== -1 ) {
           setResults(prevResult => {
@@ -47,25 +49,39 @@ const Layout = () => {
       setShowSearch(true);
     }
   },[value]);
+
+  const showsearch = () => {
+    if (document.getElementById('searchbar').style.display === 'none') {
+      document.getElementById('searchbar').style.display = 'block';
+    } else {
+      document.getElementById('searchbar').style.display = 'none';
+    }
+    document.getElementById('searchbar').classList.toggle('nav-text');
+  };
   
   //firebase logout function
   const logout = async () => {
     await signOut(auth);
-  };  
+  };
 
   return (
     <>
       <nav>
         <ul>
-          <li><h2 className="title">Instagram</h2></li>
-          <li>
-            <img src={homeblack} alt="img could not load" className="uploadIMG" /> 
-            <Link to='/'>Homepage</Link> 
+          <li className='nav-item'>
+            <img src={instablack} className="uploadIMG instalogo" alt="" />
+            <h2 className="title nav-text">Instagram</h2>
           </li>
-          <li className='search'>
-            <img src={searchblack} alt="img could not load" className="uploadIMG" /> 
+          <li className='nav-item'>
+            <Link to='/' >
+              <img src={homeblack} alt="img could not load" className="uploadIMG" />
+              <h3 className='nav-text'>Homepage</h3>
+            </Link> 
+          </li>
+          <li className='search nav-item'>
+            <img src={searchblack} onClick={() => showsearch()} alt="img could not load" className="uploadIMG" /> 
             <div className='searchAndOutput'>
-              <input type="text" id='searchbar' className="searchbar" onChange={(event) => setValue(event.target.value)} placeholder="Search..." value={value} />
+              <input type="text" id='searchbar' className="searchbar nav-text" onChange={(event) => setValue(event.target.value)} placeholder="Search..." value={value} />
               {value && <div id='searchBack' className="searchBack">
                 {showSearch && results.map((result, index) => (
                   <Link to={'/user'} state={{ from: result[1]}} key={index} >{result[0]}</Link>
@@ -73,17 +89,23 @@ const Layout = () => {
               </div>}
             </div>
           </li>
-          <li>
-            <img src={uploadIMG} alt="img could not load" className="uploadIMG" /> 
-            <Link to='/upload'>Upload</Link>
+          <li className='nav-item'>
+            <Link to='/upload' >
+              <img src={uploadIMG} alt="img could not load" className="uploadIMG" /> 
+              <h3 className='nav-text'>Upload</h3>
+            </Link>
           </li>
-          <li>
-            <img src={profileblack} alt="img could not load" className="uploadIMG" /> 
-            <Link to='/profile' state={{ from: user.uid }} >Profile</Link>
+          <li className='nav-item'>
+            <Link to='/profile' state={{ from: user.uid }} >
+              <img src={profileblack} alt="img could not load" className="uploadIMG" /> 
+              <h3 className='nav-text'>Profile</h3>
+            </Link>
           </li>
-          <li onClick={logout}>
-            <img src={logoutblack} alt="img could not load" className="uploadIMG" /> 
-            Sign out
+          <li onClick={logout} className='nav-item'>
+            <Link >
+              <img src={logoutblack} alt="img could not load" className="uploadIMG" /> 
+              <h3 className='nav-text'>Sign out</h3>
+            </Link>
           </li>
         </ul>
       </nav>
