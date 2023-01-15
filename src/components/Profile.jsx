@@ -31,6 +31,7 @@ const Profile = () => {
   //for post data
   const [postimg, setPostimg] = useState();
   const [postname, setPostname] = useState();
+  const [postcaption, setPostcaption] = useState();
   const [likesAmount, setLikesAmount] = useState();
   const [like, setLike] = useState(false);
   const [postid, setPostid] = useState();
@@ -116,6 +117,7 @@ const Profile = () => {
       });
       setLikesAmount(postSnap.data().likes);
       setPostname(userSnap.data().name);
+      setPostcaption(postSnap.data().caption);
       setPostid(url[1]);
     };
     await getPostData();
@@ -191,7 +193,7 @@ const Profile = () => {
         username: commentUsername 
       }) 
     });
-    location.reload();
+    window.location.reload();
   };
 
   return (
@@ -230,29 +232,25 @@ const Profile = () => {
         })}
       </div>
       
-      {showPost && <><div className='activePostdelete' onClick={() => setShowPost(false)}>X</div><div className='activePost'>
+      {showPost && <><div className='activePost'>
+        <div className="activePost-header">
+          <p>{postname} </p>
+          <p className='activePost-delete' onClick={() => setShowPost(false)}>X</p>
+        </div>
         <img src={postimg} alt="" className='activePostImg'/>
-        <div className="right">
-          <div className="rightTop">
-            <p>{postname} </p>
-          </div>
-          <ul className='comments'>
-            {comments.map((comment, index) => {
-              return <li key={index} id={comment.userid}><b>{comment.username}:</b> {comment.comment}</li>;
-            })} 
-          </ul>
-          <div className="rightBottom">
-            <div className="likeContainer">
-              {!like ? <img src={likeblack} onClick={onLikeClick} alt="img could not load" className="uploadIMG" /> : <img src={likered} onClick={onLikeClick} alt="img could not load" className="uploadIMG" />}
-            </div>
-            <div className="likes">
-              <p>{likesAmount} likes</p>
-            </div>
-            <div className='commentAndButton'>
-              <input type="text" onChange={(event) => setCommentInput(event.target.value)} name="comment" id="comment" placeholder='Add a comment...' />
-              <button onClick={postComment}>comment</button>
-            </div>
-          </div>
+        <div className="activePost-likeContainer">
+          {!like ? <img src={likeblack} onClick={onLikeClick} alt="img could not load" className="uploadIMG" /> : <img src={likered} onClick={onLikeClick} alt="img could not load" className="uploadIMG" />}
+          <p>{likesAmount} likes</p>
+        </div>
+        <p className='activePost-caption'><b>{postname}: </b>{postcaption}</p>
+        <ul className='activePost-comments'>
+          {comments.map((comment, index) => {
+            return <li key={index} id={comment.userid}><b>{comment.username}:</b> {comment.comment}</li>;
+          })} 
+        </ul>
+        <div className='input-group'>
+          <input type="text" className='form-control' onChange={(event) => setCommentInput(event.target.value)} name="comment" id="comment" placeholder='Add a comment...' />
+          <button className='btn btn-primary' onClick={postComment}>comment</button>
         </div>
       </div></>
       }

@@ -60,34 +60,25 @@ const Post = ({ postIMG, caption, likes, username, postid }) => {
   
   return (
     <div className="post">
-      <div className="posttopbar">
-        <p>{username} •</p>
-        <p className='follow'>Follow</p>
+      <div className="activePost-header">
+        <p>{username} </p>
       </div>
       <img src={postIMG} className='postIMG' alt="" />
-      <div className="postbottembar">
-        <div className="likeAndSave">
-          {!like ? <img src={likeblack} onClick={onLikeClick} alt="img could not load" className="uploadIMG" /> : <img src={likered} onClick={onLikeClick} alt="img could not load" className="uploadIMG" />}
-          <img src={save} alt="" /> 
-        </div>
-        <div className="likes">
-          <p><b>{likesAmount} likes</b></p>
-        </div>
-        <div className="comments">
-          <div className="nameAndCaption">
-            <p><b>{username}:</b></p>
-            <p>{caption}</p>
-          </div>
-          <ul className='commentul'>
-            {comments.map((comment, index) => {
-              return <li className='commentli' key={index} id={comment.userid}><b>{comment.username}:</b> {comment.comment}</li>;
-            })} 
-          </ul>
-          <div className='inputAndButton'>
-            <input type="text" onChange={(event) => setCommentInput(event.target.value)} className='commentinput' id="commenttext" placeholder="Put comment here"/>
-            <button onClick={postComment} className='commentPost'><b>Post</b></button>    
-          </div>
-        </div>
+      <div className="activePost-likeContainer">
+        {!like ? <img src={likeblack} onClick={onLikeClick} alt="img could not load" className="uploadIMG" /> : <img src={likered} onClick={onLikeClick} alt="img could not load" className="uploadIMG" />}
+        <p>{likesAmount} likes</p>
+      </div>
+      <div className="comments">
+        <p className='activePost-caption'><b>{username}: </b>{caption}</p>
+        <ul className='activePost-comments'>
+          {comments.map((comment, index) => {
+            return <li className='commentli' key={index} id={comment.userid}><b>{comment.username}:</b> {comment.comment}</li>;
+          })} 
+        </ul> 
+      </div>
+      <div className='input-group'>
+        <input type="text" className='form-control' onChange={(event) => setCommentInput(event.target.value)} name="comment" id="comment" placeholder='Add a comment...' />
+        <button className='btn btn-primary' onClick={postComment}>comment</button>
       </div>
     </div>
   );
