@@ -205,11 +205,8 @@ const Profile = () => {
         </div><div className='userinfo'><div className='name-bio'>
           <b><p id='firestoreData-name'></p></b>
           <p id='firestoreData-bio'></p>
-        </div><div className='followers'>
-          <p>2 messages</p>
-          <p>4 followers</p>
-          <p>5 following</p>
-        </div></div> </> : 
+        </div>
+        </div> </> : 
         <> <div className="username">
           <input type="text" onChange={(event) => setUsername(event.target.value)} name="username" id="username" placeholder='username...' />
           <button className='usernameBtn' onClick={onUpdate} >Update data</button>

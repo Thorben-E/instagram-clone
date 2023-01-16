@@ -192,6 +192,7 @@ li {
 
 .post {
   max-width: 500px;
+  width: auto;
   display: flex;
   flex-direction: column;
   border: 1px solid var(--lightgray);
@@ -207,8 +208,7 @@ li {
 }
 
 .postIMG {
-  width: auto;
-  object-fit: scale-down;
+  object-fit: fill;
 }
 
 .postbottembar {
@@ -250,7 +250,7 @@ li {
 }
 
 .postimg {
-  width: 230px;
+  width: 25vw;
 }
 
 .nameAndCaption {
@@ -280,7 +280,7 @@ li {
 /* profile styling */
 
 .profileinfo {
-  width: calc(100vw - 250px);
+  width: calc(100vw - 50px);
 }
 
 .username {
@@ -314,16 +314,15 @@ li {
 
 .posts {
   display: flex;
+  flex-direction: row;
   flex-wrap: wrap;
   gap: 25px;
-  padding-left: 60px;
 }
 
 .userPosts {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
-  padding-left: 60px;
 }
 
 .profileContainer {
@@ -376,6 +375,8 @@ li {
   overflow: auto;
   height: auto;
   max-height: 20vh;
+  margin-left: 20px;
+  gap: 5px;
 }
 
 .right {
@@ -437,7 +438,7 @@ li {
     display: none;
   }
 
-  ul {
+  nav ul {
     display: flex;
     flex-direction: row;
   }
@@ -450,9 +451,9 @@ li {
     width: calc(100vw - 50px);
   }
 
-  .profileinfo {
+  .profileinfoWrap {
     width: 100vw;
-    height: calc(100vh - 200px);
+    height: calc(100vh);
   }
 
   .searchbar {
@@ -490,9 +491,10 @@ li {
     left: 0;
     height: 100vh;
     width: 10vw;
+    background-color: lightgray;
   }
 
-  ul {
+  nav ul {
     justify-content: flex-start;
     align-items: center;
     padding-top: 30px;
@@ -503,12 +505,22 @@ li {
     display: none;
   }
 
+  .searchbar {
+    position: absolute;
+    left: 8vw;
+  }
+
+  .searchBack {
+    position: absolute;
+    left: 3vw;
+  }
+
   .homepagePosts {
     width: calc(100vw - 100px);
   }
 
   .post {
-    width: calc(100vw - 200);
+    width: calc(100vw - 10vw);
   }
 
   .container {
@@ -516,15 +528,16 @@ li {
     margin-left: 40px;
   }
 
-  .profileinfo {
+  .profileinfoWrap {
     width: calc(100vw - 100px);
+    margin-left: 10vw;
   }
 
   .activePost {
     position: absolute;
     top: 50%;
     left: 50%;
-    margin: -30vh;
+    transform: translate(-50%, -50%);
   }
 }
 
@@ -545,6 +558,17 @@ li {
 
   .nav-text {
     display: block;
+  }
+
+  nav ul {
+    display: flex;
+    align-items: flex-start;
+    margin-left: 2vw;
+  }
+
+  .searchbar {
+    background-color: white;
+    left: 3vw;
   }
 
   .activePost {

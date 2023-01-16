@@ -51,12 +51,16 @@ const Layout = () => {
   },[value]);
 
   const showsearch = () => {
-    if (document.getElementById('searchbar').style.display === 'none') {
-      document.getElementById('searchbar').style.display = 'block';
+    if (screen.width < 1200) {
+      if (document.getElementById('searchbar').style.display === 'none') {
+        document.getElementById('searchbar').style.display = 'block';
+      } else {
+        document.getElementById('searchbar').style.display = 'none';
+      }
+      document.getElementById('searchbar').classList.toggle('nav-text');
     } else {
-      document.getElementById('searchbar').style.display = 'none';
+      document.getElementById('searchbar').style.display = 'block';
     }
-    document.getElementById('searchbar').classList.toggle('nav-text');
   };
   
   //firebase logout function
@@ -75,6 +79,24 @@ const Layout = () => {
     }
   };
 
+  const showSearchbar = () => {
+    if (screen.width > 1200) {
+      return; 
+    } else {
+      return <li className='search nav-item'>
+        <img src={searchblack} onClick={() => showsearch()} alt="img could not load" className="uploadIMG" /> 
+        <div className='searchAndOutput'>
+          <input type="text" id='searchbar' className="searchbar nav-text" onChange={(event) => setValue(event.target.value)} placeholder="Search..." value={value} />
+          {value && <div id='searchBack' className="searchBack">
+            {showSearch && results.map((result, index) => (
+              <Link to={'/user'} state={{ from: result[1]}} key={index} >{result[0]}</Link>
+            ))}
+          </div>}
+        </div>
+      </li>;
+    }
+  };
+
   return (
     <>
       <nav>
@@ -86,16 +108,15 @@ const Layout = () => {
               <h3 className='nav-text'>Homepage</h3>
             </Link> 
           </li>
+          {showSearchbar()}
           <li className='search nav-item'>
             <img src={searchblack} onClick={() => showsearch()} alt="img could not load" className="uploadIMG" /> 
-            <div className='searchAndOutput'>
-              <input type="text" id='searchbar' className="searchbar nav-text" onChange={(event) => setValue(event.target.value)} placeholder="Search..." value={value} />
-              {value && <div id='searchBack' className="searchBack">
-                {showSearch && results.map((result, index) => (
-                  <Link to={'/user'} state={{ from: result[1]}} key={index} >{result[0]}</Link>
-                ))}
-              </div>}
-            </div>
+            <input type="text" id='searchbar' className="searchbar nav-text" onChange={(event) => setValue(event.target.value)} placeholder="Search..." value={value} />
+            {value && <div id='searchBack' className="searchBack">
+              {showSearch && results.map((result, index) => (
+                <Link to={'/user'} state={{ from: result[1]}} key={index} >{result[0]}</Link>
+              ))}
+            </div>}
           </li>
           <li className='nav-item'>
             <Link to='/upload' >
