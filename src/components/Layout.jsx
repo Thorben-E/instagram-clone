@@ -81,7 +81,15 @@ const Layout = () => {
 
   const showSearchbar = () => {
     if (screen.width > 1200) {
-      return; 
+      return <li className='search nav-item'>
+        <img src={searchblack} onClick={() => showsearch()} alt="img could not load" className="uploadIMG" /> 
+        <input type="text" id='searchbar' className="searchbar nav-text" onChange={(event) => setValue(event.target.value)} placeholder="Search..." value={value} />
+        {value && <div id='searchBack' className="searchBack">
+          {showSearch && results.map((result, index) => (
+            <Link to={'/user'} state={{ from: result[1]}} key={index} >{result[0]}</Link>
+          ))}
+        </div>}
+      </li>;
     } else {
       return <li className='search nav-item'>
         <img src={searchblack} onClick={() => showsearch()} alt="img could not load" className="uploadIMG" /> 
@@ -109,15 +117,6 @@ const Layout = () => {
             </Link> 
           </li>
           {showSearchbar()}
-          <li className='search nav-item'>
-            <img src={searchblack} onClick={() => showsearch()} alt="img could not load" className="uploadIMG" /> 
-            <input type="text" id='searchbar' className="searchbar nav-text" onChange={(event) => setValue(event.target.value)} placeholder="Search..." value={value} />
-            {value && <div id='searchBack' className="searchBack">
-              {showSearch && results.map((result, index) => (
-                <Link to={'/user'} state={{ from: result[1]}} key={index} >{result[0]}</Link>
-              ))}
-            </div>}
-          </li>
           <li className='nav-item'>
             <Link to='/upload' >
               <img src={uploadIMG} alt="img could not load" className="uploadIMG" /> 
