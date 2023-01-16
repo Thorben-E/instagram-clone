@@ -20,7 +20,6 @@
 body {
   margin: 0;
   font-family: 'Roboto';
-  min-width: 1050px;
 }
 
 #root {
@@ -40,19 +39,17 @@ body {
 
 nav {
   position: fixed;
-  left: 0;
   display: flex;
-  justify-content: space-between;
-  flex-direction: column;
-  width: 200px;
-  height: 100vh;
+  width: 100vw;
 }
 
 ul {
+  padding: 0;
+  width: 100vw;
   list-style: none;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  justify-content: space-around;
 }
 
 ul a {
@@ -87,6 +84,9 @@ ul a {
 }
 
 .searchBack {
+  position: fixed;
+  bottom: 80px;
+  left: 70%;
   background-color: white;
   border: 1px black solid;
   padding: 5px;
@@ -371,7 +371,11 @@ li {
 
 .activePost-comments {
   display: flex;
+  width: 100%;
   flex-direction: column;
+  overflow: auto;
+  height: auto;
+  max-height: 20vh;
 }
 
 .right {
@@ -422,6 +426,10 @@ li {
 
   nav {
     position: fixed;
+    z-index: 10;
+    background-color: darkgray;
+    width: 100vw;
+    padding-top: 15px;
     bottom: 0;
   }
 
@@ -448,24 +456,24 @@ li {
   }
 
   .searchbar {
-    position: absolute;
-    bottom: 15px;
-    left: -80px;
+    position: fixed;
+    bottom: 80px;
+    left: 50%;
+    transform: translate(-50%, 0);
   }
 
   .activePost {
     position: absolute;
     top: 50%;
     left: 50%;
-    margin-top: -20vh;
-    margin-left: -40vw;
+    transform: translate(-50%, -50%);
+    width: calc((100vw - 100px));
     height: auto;
     max-height: 80vh;
-    height: auto;
   }
   
   .activePostImg {
-    width: auto;
+    width: calc(100vw - 100px);
     object-fit: contain;
   }
 }
@@ -478,7 +486,17 @@ li {
   }
   
   nav {
-    width: 100px;
+    position: fixed;
+    left: 0;
+    height: 100vh;
+    width: 10vw;
+  }
+
+  ul {
+    justify-content: flex-start;
+    align-items: center;
+    padding-top: 30px;
+    gap: 20px;
   }
 
   .nav-text {

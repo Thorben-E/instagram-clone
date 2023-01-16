@@ -64,14 +64,22 @@ const Layout = () => {
     await signOut(auth);
   };
 
+  const showLogo = () => {
+    if (screen.width < 720) {
+      return; 
+    } else {
+      return <li className='nav-item'>
+        <img src={instablack} className="uploadIMG instalogo" alt="" />
+        <h2 className="title nav-text">Instagram</h2>
+      </li>;
+    }
+  };
+
   return (
     <>
       <nav>
         <ul>
-          <li className='nav-item'>
-            <img src={instablack} className="uploadIMG instalogo" alt="" />
-            <h2 className="title nav-text">Instagram</h2>
-          </li>
+          {showLogo()}
           <li className='nav-item'>
             <Link to='/' >
               <img src={homeblack} alt="img could not load" className="uploadIMG" />

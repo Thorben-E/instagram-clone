@@ -3,7 +3,6 @@ import React, { useContext, useEffect, useState } from 'react';
 import likeblack from '../assets/likeblack.png';
 import { UserContext } from '../contexts';
 import { db } from '../firebase';
-import save from '../assets/save.png';
 import likered from '../assets/likered.png';
 
 // eslint-disable-next-line react/prop-types

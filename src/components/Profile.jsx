@@ -161,7 +161,7 @@ const Profile = () => {
     updateProfile(auth.currentUser, {
       displayName: username
     }).then(() => {
-      location.reload();
+      window.location.reload();
     }).catch((error) =>
       console.log(error)
     );
