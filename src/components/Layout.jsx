@@ -130,7 +130,7 @@ const Layout = () => {
             </Link>
           </li>
           <li onClick={logout} className='nav-item'>
-            <Link >
+            <Link to="/">
               <img src={logoutblack} alt="img could not load" className="uploadIMG" /> 
               <h3 className='nav-text'>Sign out</h3>
             </Link>
