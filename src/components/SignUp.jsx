@@ -1,20 +1,20 @@
-import React, { useState } from 'react';
+import React, { useRef } from 'react';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../firebase';
 
 // eslint-disable-next-line react/prop-types
 const SingUp = ({ signupClick }) => {
-  // user inputs states
-  const [email, setEmail] = useState(null);
-  const [password, setPassword] = useState(null);
+  // user inputs refs
+  const emailRef = useRef();
+  const passwordRef = useRef();
 
   // create user account
   const register = async () => {
     try {
       const user = await createUserWithEmailAndPassword(
         auth, 
-        email, 
-        password
+        emailRef, 
+        passwordRef
       );
       console.log(user);
     } catch(error) {
@@ -28,12 +28,8 @@ const SingUp = ({ signupClick }) => {
         <div className="loginFormTop">
           <h1 className="title">Instagram</h1>
           <p>Sign up to see pictures and video&apos;s from friends.</p>
-          <input type="text" name="email" className='form-control' onChange={(event) => {
-            setEmail(event.target.value);
-          }} id="email" placeholder="email"/>
-          <input type="password" name="password" className='form-control' onChange={(event) => {
-            setPassword(event.target.value);
-          }} id="password" placeholder="password" />
+          <input type="text" name="email" className='form-control' ref={emailRef} id="email" placeholder="email"/>
+          <input type="password" name="password" className='form-control' ref={passwordRef} id="password" placeholder="password" />
           <button className='btn btn-primary' onClick={register}>Sign up</button>
         </div>
         <div className="loginFormBottom">
