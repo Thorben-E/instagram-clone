@@ -193,7 +193,7 @@ const Profile = () => {
     <div className="profileinfo">
       {changeUsername ? 
         <> <div className='username'>
-          <h2>{user.displayName ? user.displayName : 'Click button to set username'}</h2>
+          <h2>{user.displayName ? user.displayName : 'Click button to set userdata'}</h2>
           <button className='usernameBtn' onClick={() => setChangeUsername(false)}>Change Userdata</button>
         </div><div className='userinfo'><div className='name-bio'>
           <b><p id='firestoreData-name'></p></b>
@@ -210,16 +210,11 @@ const Profile = () => {
             <b><p id='firestoreData-name'></p></b>
             <p id='firestoreData-bio'></p>
           </div>
-          <div className='followers'>
-            <p>2 messages</p>
-            <p>4 followers</p>
-            <p>5 following</p>
-          </div>
         </div> </>}
       <div className='posts'>
-        {postList.map((url, index) => {
+        {postList.length ? postList.map((url, index) => {
           return <img key={index} onClick={() => goToPost(url)} className="postimg" src={url} />;
-        })}
+        }) : <p>Upload a post, and view it here</p>}
       </div>
       
       {showPost && <><div className='activePost'>

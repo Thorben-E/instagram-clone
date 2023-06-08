@@ -13,16 +13,15 @@ const SignUp = ({ signupClick }) => {
     try {
       const user = await createUserWithEmailAndPassword(
         auth, 
-        emailRef, 
-        passwordRef
+        emailRef.current.value, 
+        passwordRef.current.value
       );
-      console.log(user);
     } catch(error) {
-      console.log(error);
+      console.log(error.code);
       console.log(error.message);
     }
   };
-
+  
   return (
     <>
       <div className="loginForm">
