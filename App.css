@@ -133,9 +133,11 @@ li {
   text-align: center;
   gap: 10px;
   padding-bottom: 15px;
+  padding: 30px;
 }
 
 .loginFormBottom {
+  padding-top: 15px;
   display: flex;
   justify-content: center;
   border: solid 1px var(--lightgray);
