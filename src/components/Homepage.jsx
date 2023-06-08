@@ -16,24 +16,13 @@ const Homepage = () => {
 
   // for creating array with postids 
   useEffect(() => {
-    const wrapper = async () => {
-      const createPostList = async () => {
-        const querySnapshot = await getDocs(postsColRef);
-        querySnapshot.forEach((doc) => {
-          setPostsId(current => [...current, doc.id]);
-        });
-      };
-      await createPostList();
+    const createPostList = async () => {
+      const querySnapshot = await getDocs(postsColRef);
+      querySnapshot.forEach((doc) => {
+        setPostsId(current => [...current, doc.id]);
+      });
     };
-    wrapper();
-    if (document.getElementById('searchBack') || document.getElementById('searchbar')) {
-      if (document.getElementById('searchBack')) {
-        document.getElementById('searchBack').style.display = 'none';
-      } 
-      if (document.getElementById('searchbar')) {
-        document.getElementById('searchbar').style.display = 'none';
-      }
-    }
+    createPostList();
   }, []);
 
   // for setting array with all posts

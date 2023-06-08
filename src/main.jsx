@@ -9,6 +9,7 @@ import Profile from './components/Profile';
 import Homepage from './components/Homepage';
 import Layout from './components/Layout';
 import User from './components/User';
+import Search from './components/Search';
 import '../App.css';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from './firebase';
@@ -31,6 +32,7 @@ function App() {
               <Route index element={<Homepage />} />
               <Route path='login' element={<Login />} />
               <Route path='upload' element={<Upload />} />
+              <Route path='search' element={<Search />} />
               <Route path='user' element={<User />} />
               <Route path='profile' element={<Profile />} />
             </Routes>

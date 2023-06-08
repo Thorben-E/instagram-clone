@@ -1,6 +1,6 @@
 import { addDoc, doc, arrayUnion, updateDoc } from 'firebase/firestore';
 import { ref, uploadBytes } from 'firebase/storage';
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 import { postsColRef } from '../firebase';
 import { storage } from '../firebase';
 import { v4 } from 'uuid';
@@ -12,16 +12,6 @@ const Upload = () => {
   // values for post data
   const [caption, setCaption] = useState();
   const [imageUpload, setImageUpload] = useState(null);
-
-  useEffect(() => {
-    if (document.getElementById('searchBack') || document.getElementById('searchbar')) {
-      if (document.getElementById('searchBack')) {
-        document.getElementById('searchBack').style.display = 'none';
-      } if (document.getElementById('searchbar')) {
-        document.getElementById('searchbar').style.display = 'none';
-      }
-    }
-  });
 
   const upload = async () => {
     const userRef = doc(db, 'Users', user.uid);

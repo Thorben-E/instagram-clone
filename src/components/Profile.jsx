@@ -61,13 +61,6 @@ const Profile = () => {
     };
     wrapper();
     setUserid(from);
-    if (document.getElementById('searchBack') || document.getElementById('searchbar')) {
-      if (document.getElementById('searchBack')) {
-        document.getElementById('searchBack').style.display = 'none';
-      } if (document.getElementById('searchbar')) {
-        document.getElementById('searchbar').style.display = 'none';
-      }
-    }
   }, []);
 
   // set postsRefs with userid
