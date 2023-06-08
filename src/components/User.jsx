@@ -24,14 +24,18 @@ const User = () => {
   // initial load that adds postid's to array
   useEffect(() => {
     const wrapper = async () => {
+      console.log(from);
       const userSnap = await getDoc(doc(db, 'Users', from));
+      let postsids = userSnap.data().posts;
       setUsername(userSnap.data().username);
       setName(userSnap.data().name);
       setBio(userSnap.data().bio);
       const createPostList = async () => {
         const querySnapshot = await getDocs(postsColRef);
         querySnapshot.forEach((doc) => {
-          setPostsId(current => [...current, doc.id]);
+          if (postsids.includes(doc.id)) {
+            setPostsId(current => [...current, doc.id]);
+          }
         });
       };
       await createPostList();
@@ -82,10 +86,6 @@ const User = () => {
         </div><div className='userinfo'><div className='name-bio'>
           <b><p>{name}</p></b>
           <p>{bio}</p>
-        </div><div className='followers'>
-          <p>2 messages</p>
-          <p>4 followers</p>
-          <p>5 following</p>
         </div></div> </>  
       </div>
       <div className='userPosts'>

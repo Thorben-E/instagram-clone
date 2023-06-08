@@ -127,6 +127,7 @@ li {
 
 .loginFormTop {
   border: 1px solid var(--lightgray);
+  border-radius: 5px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -137,10 +138,11 @@ li {
 }
 
 .loginFormBottom {
+  border: solid 1px var(--lightgray);
+  border-radius: 5px;
   padding-top: 15px;
   display: flex;
   justify-content: center;
-  border: solid 1px var(--lightgray);
 }
 
 .loginForm-container {

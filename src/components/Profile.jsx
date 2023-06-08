@@ -193,7 +193,7 @@ const Profile = () => {
     <div className="profileinfo">
       {changeUsername ? 
         <> <div className='username'>
-          <h2>{user.displayName}</h2>
+          <h2>{user.displayName ? user.displayName : 'Click button to set username'}</h2>
           <button className='usernameBtn' onClick={() => setChangeUsername(false)}>Change Userdata</button>
         </div><div className='userinfo'><div className='name-bio'>
           <b><p id='firestoreData-name'></p></b>

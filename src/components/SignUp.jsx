@@ -3,7 +3,7 @@ import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../firebase';
 
 // eslint-disable-next-line react/prop-types
-const SingUp = ({ signupClick }) => {
+const SignUp = ({ signupClick }) => {
   // user inputs refs
   const emailRef = useRef();
   const passwordRef = useRef();
@@ -18,6 +18,7 @@ const SingUp = ({ signupClick }) => {
       );
       console.log(user);
     } catch(error) {
+      console.log(error);
       console.log(error.message);
     }
   };
@@ -40,4 +41,4 @@ const SingUp = ({ signupClick }) => {
   );
 };
 
-export default SingUp;
+export default SignUp;
