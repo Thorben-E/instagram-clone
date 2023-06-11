@@ -11,7 +11,7 @@ const SignUp = ({ signupClick }) => {
   // create user account
   const register = async () => {
     try {
-      const user = await createUserWithEmailAndPassword(
+      await createUserWithEmailAndPassword(
         auth, 
         emailRef.current.value, 
         passwordRef.current.value

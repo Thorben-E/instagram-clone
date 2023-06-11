@@ -17,12 +17,11 @@ const Login = () => {
   // login to firebase with input values
   const login = async () => {
     try {
-      const user = await signInWithEmailAndPassword(
+      await signInWithEmailAndPassword(
         auth, 
         emailRef.current.value, 
         passwordRef.current.value
       );
-      console.log(user);
     } catch(error) {
       console.log(error.message);
     }
